@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi | Pràctiques per l’anàlisi de dades òmiques amb R</title>
+  <meta name="description" content="Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi | Pràctiques per l’anàlisi de dades òmiques amb R" />
+  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi | Pràctiques per l’anàlisi de dades òmiques amb R" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi | Pràctiques per l’anàlisi de dades òmiques amb R" />
+  
+  
+  
+
+<meta name="author" content="Meritxell Pujolassos Tanyà" />
+
+
+<meta name="date" content="2026-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="01-pract1-taller_gust.html"/>
+<link rel="next" href="03-pract3-anovaI.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Presentació del curs</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#estructura-del-llibre-i-els-seus-continguts"><i class="fa fa-check"></i>Estructura del llibre i els seus continguts</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#desenvolupament-de-les-pràctiques"><i class="fa fa-check"></i>Desenvolupament de les pràctiques</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#requisits"><i class="fa fa-check"></i>Requisits</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#crèdits"><i class="fa fa-check"></i>Crèdits</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="01-pract1-taller_gust.html"><a href="01-pract1-taller_gust.html"><i class="fa fa-check"></i>Pràctica 1. Introducció pràctica a les eines i bases de dades bioinformàtiques</a>
+<ul>
+<li class="chapter" data-level="" data-path="01-pract1-taller_gust.html"><a href="01-pract1-taller_gust.html#objectius"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="01-pract1-taller_gust.html"><a href="01-pract1-taller_gust.html#descripció-de-la-pràctica"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html"><i class="fa fa-check"></i>Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi</a>
+<ul>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#objectius-1"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#estudi-drnaseq-de-pacients-amb-tuberculosis"><i class="fa fa-check"></i>1. Estudi d’RNAseq de pacients amb Tuberculosis</a>
+<ul>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#contextualització-del-problema-científic"><i class="fa fa-check"></i>1.1 Contextualització del problema científic</a></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#descarregar-dades"><i class="fa fa-check"></i>1.2. Descarregar dades</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#treballar-les-dades-amb-r"><i class="fa fa-check"></i>2. Treballar les dades amb R</a>
+<ul>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#introducció-a-lrmarkdown"><i class="fa fa-check"></i>2.1. Introducció a l’RMarkdown</a></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#importar-dades-a-r"><i class="fa fa-check"></i>2.2. Importar dades a R</a></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#anàlisi-exploratori-de-la-metadada"><i class="fa fa-check"></i>2.3. Anàlisi exploratori de la metadada</a></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#anàlisi-exploratori-de-les-abundàncies-gèniques"><i class="fa fa-check"></i>2.4. Anàlisi exploratori de les abundàncies gèniques</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#exportar-les-dades-creades"><i class="fa fa-check"></i>3. Exportar les dades creades</a></li>
+<li class="chapter" data-level="" data-path="02-pract2-dades.html"><a href="02-pract2-dades.html#bibliografia"><i class="fa fa-check"></i>Bibliografia</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="03-pract3-anovaI.html"><a href="03-pract3-anovaI.html"><i class="fa fa-check"></i>Pràctica 3. Testos d’igualtat de mitjanes per dues o més poblacions: T-test i ANOVA</a>
+<ul>
+<li class="chapter" data-level="" data-path="03-pract3-anovaI.html"><a href="03-pract3-anovaI.html#objectius-2"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="03-pract3-anovaI.html"><a href="03-pract3-anovaI.html#descripció-de-la-pràctica-1"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="04-pract4-anovaII.html"><a href="04-pract4-anovaII.html"><i class="fa fa-check"></i>Pràctica 4. Testos d’igualtat de mitjanes per més de dues poblacions: ANOVA de dos factors i ANOVA per mesures repetides</a>
+<ul>
+<li class="chapter" data-level="" data-path="04-pract4-anovaII.html"><a href="04-pract4-anovaII.html#objectius-3"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="04-pract4-anovaII.html"><a href="04-pract4-anovaII.html#descripció-de-la-pràctica-2"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html"><i class="fa fa-check"></i>Pràctica 5. Estadística no paramètrica (I): Test de Wilcoxon</a>
+<ul>
+<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#objectius-4"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#descripció-de-la-pràctica-3"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html"><i class="fa fa-check"></i>Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc</a>
+<ul>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#objectius-5"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#descripció-de-la-pràctica-4"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html"><i class="fa fa-check"></i>Pràctica 7. Models de Regressió lineal (I)</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#objectius-6"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#descripció-de-la-pràctica-5"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html"><i class="fa fa-check"></i>Pràctica 8. Models de Regressió lineal (II)</a>
+<ul>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#objectius-7"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#descripció-de-la-pràctica-6"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html"><i class="fa fa-check"></i>Pràctica 9. Models de Regressió logística (I)</a>
+<ul>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#objectius-8"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#descripció-de-la-pràctica-7"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html"><i class="fa fa-check"></i>Pràctica 10. Models de Regressió logística (II)</a>
+<ul>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#objectius-9"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#descripció-de-la-pràctica-8"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html"><i class="fa fa-check"></i>Pràctica 11. Visualització i interpretació de resultats de seqüenciació</a>
+<ul>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#objectius-10"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#descripció-de-la-pràctica-9"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Pràctiques per l’anàlisi de dades òmiques amb R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="pràctica-2.-obtenció-de-dades-de-rna-seq-pel-seu-anàlisi" class="section level1 hasAnchor">
+<h1>Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi<a href="02-pract2-dades.html#pràctica-2.-obtenció-de-dades-de-rna-seq-pel-seu-anàlisi" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="objectius-1" class="section level2 hasAnchor">
+<h2>Objectius<a href="02-pract2-dades.html#objectius-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En aquesta pràctica es treballaran funcions específiques d’R com:</p>
+<ul>
+<li><p>Importar i exportar fitxers a l’R</p></li>
+<li><p>Manipular datasets de grans dimensions (dades RNAseq): filtrar per columnes, filtrar per files, unir datasets, etc.</p></li>
+<li><p>Definir noms de columnes i de files</p></li>
+<li><p>Estructurar un RMarkdown per generar un fitxer .html amb els resultats desitjats</p></li>
+</ul>
+<p>A més, la pràctica servirà per introduir-se al context de les dades amb les quals es treballarà durant l’assignatura:</p>
+<ul>
+<li><p>Entendre l’estudi d’on provenen les dades</p></li>
+<li><p>Compendre les variables obtingudes</p></li>
+<li><p>Formular possibles preguntes de recerca i hipòtesis científiques</p></li>
+</ul>
+</div>
+<div id="estudi-drnaseq-de-pacients-amb-tuberculosis" class="section level2 hasAnchor">
+<h2>1. Estudi d’RNAseq de pacients amb Tuberculosis<a href="02-pract2-dades.html#estudi-drnaseq-de-pacients-amb-tuberculosis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="contextualització-del-problema-científic" class="section level3 hasAnchor">
+<h3>1.1 Contextualització del problema científic<a href="02-pract2-dades.html#contextualització-del-problema-científic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En aquestes pràctiques es treballaran dades d’expressió (RNAseq) de pacients amb tuberculosis. Les dades originals s’han extret del treball de Thomson et al. (2017) titulat “<em>Host blood RNA signatures predict the outcome of tuberculosis treatment</em>” [<a href="https://www.sciencedirect.com/science/article/pii/S1472979217301889?via%3Dihub">2</a>]</p>
+<p>Les dades originals es troben emmagatzemades al repositori <a href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a> amb número d’accés <strong>GSE89403</strong>. Aquesta pàgina conté informació sobre l’estudi, l’obtenció de les dades i els fitxers amb les dades.</p>
+<p>El primer que cal fer és contextualitzar l’objecte d’estudi:</p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Accedeix a <a href="https://www.ncbi.nlm.nih.gov/geo/">GEO</a> i busca la fitxa de l’estudi (GSE89403)
+</p>
+<p>
+Llegeix el resum de la fitxa GEO i fes un esquema del disseny de l’experiment.
+</p>
+<p>
+Hi ha rèpliques biològiques? i tècniques? Quina és la diferència entre aquestes dues?
+</p>
+<p>
+Busca a la fitxa de GEO la plataforma òmica que han utilitzat per fer l’anàlisi.
+</p>
+</div>
+</div>
+<div id="descarregar-dades" class="section level3 hasAnchor">
+<h3>1.2. Descarregar dades<a href="02-pract2-dades.html#descarregar-dades" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Les dades de RNAseq generen una gran quantitat de variables! Per tal de facilitar i agilitzar els anàlisi nosaltres treballarem amb unes dades adaptades de les originals.</p>
+<p>Dins de l’apartat de <em>Pràctiques d’R</em> de l’aula virtual trobaras una carpeta, <em>Dades</em>, amb dos fitxers:</p>
+<ul>
+<li><p><code>practR_metadades.csv</code> Fitxer amb variables mèdiques (covariables)</p></li>
+<li><p><code>practR_rnadata.csv</code> Fitxer amb les abundàncies (normalitzades) dels gens</p></li>
+</ul>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Descarrega’t els dos fitxers (descomprimeix la carpeta si es baixa en una carpeta comprimida) i guarda’ls dins la carpeta amb la qual treballaràs.
+</p>
+</div>
+</div>
+</div>
+<div id="treballar-les-dades-amb-r" class="section level2 hasAnchor">
+<h2>2. Treballar les dades amb R<a href="02-pract2-dades.html#treballar-les-dades-amb-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introducció-a-lrmarkdown" class="section level3 hasAnchor">
+<h3>2.1. Introducció a l’RMarkdown<a href="02-pract2-dades.html#introducció-a-lrmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>L’RMarkdown és un format de scripts d’R que permet escriure en un únic fitxer de sortida text, codi i resultats del codi. Aquest fitxer de sortida pot ser en format .html, .pdf o word.
+En aquesta assignatura es realitzaran totes les pràctiques amb RMarkdown i s’entregarà ja sigui l’RMarkdown com el fitxer de sortida (en format <em>.html</em>).</p>
+<p>Per generar aquest tipus de fitxer cal obrir un nou fitxer del tipus RMarkdown: <code>File &gt; New File &gt; RMarkdown</code>.
+Automàticament s’obre una finestra demanant que s’introdueixi <code>títol</code>, <code>autor</code> i <code>data</code>. Aquests camps es podran modificar un cop creat el fitxer.</p>
+<p>Un cop creat el fitxer es recomana guardar-lo a la mateixa carpeta on hi haurà les dades que es treballaran: <code>File &gt; Save As... &gt; Nom_del_fitxer (format .Rmd)</code></p>
+<p><strong>Esctructura de R Markdown</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Encapçalament: porta la informació tant del títol i autor del document, com també del format de “<em>output</em>” (de sortia). Per defecte deixarem <code>output: html_document</code></p></li>
+<li><p>Text: quan s’escriu directament al document apareixarà com a text</p></li>
+<li><p>Codi: el codi d’R s’ha d’escriure dins dels “<em>chunks</em>”. Qualsevol cosa que introduim dins del <em>chunk</em> és com si ho fessim en un script d’R. El resultat (output) del codi també apareix directament a sota del <em>chunk</em>:</p></li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="02-pract2-dades.html#cb4-1" tabindex="-1"></a><span class="co"># Això és un chunck i s&#39;ha d&#39;escriure com si escribissim en un script d&#39;R</span></span>
+<span id="cb4-2"><a href="02-pract2-dades.html#cb4-2" tabindex="-1"></a><span class="co"># qualsevol text que volguem comentar aquí dins ha de començar per #</span></span>
+<span id="cb4-3"><a href="02-pract2-dades.html#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="02-pract2-dades.html#cb4-4" tabindex="-1"></a><span class="fu">summary</span>(cars) <span class="co"># el codi s&#39;escriu com en un script d&#39;R i el resultat d&#39;aquest apareix just a sota</span></span></code></pre></div>
+<pre><code>##      speed           dist       
+##  Min.   : 4.0   Min.   :  2.00  
+##  1st Qu.:12.0   1st Qu.: 26.00  
+##  Median :15.0   Median : 36.00  
+##  Mean   :15.4   Mean   : 42.98  
+##  3rd Qu.:19.0   3rd Qu.: 56.00  
+##  Max.   :25.0   Max.   :120.00</code></pre>
+<p>Per inserir un <em>chunk</em> cal: <code>Code &gt; Insert Chunk</code>. O bé <code>Ctrl+Alt+I</code></p>
+<p><span style="color: orange;"><em>Nota: Si vols més informació sobre RMarkdown pots consultar el llibre online “R Markdown Cookbook”[<a href="https://bookdown.org/yihui/rmarkdown-cookbook/">1</a>].</em></span></p>
+<p><br></p>
+<p>Amb això ara ja podem començar a treballar les dades!</p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Crea un nou RMarkdown i guarda’l amb el nom de <em>Practica2</em>. Aquest serà el fitxer que contindrà el codi i els comentaris d’aquesta primera pràctica.
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="importar-dades-a-r" class="section level3 hasAnchor">
+<h3>2.2. Importar dades a R<a href="02-pract2-dades.html#importar-dades-a-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Un cop creat el nou RMarkdown, pots eliminar tots els chunks excepte el primer. Ara ja tens el fitxer a punt per començar a treballar.</p>
+<ul>
+<li>Crea un nou <em>chunk</em> i defineix el teu directori de treball (sí, <strong>és obligatori!</strong>). Hauria de ser una cosa similar a:</li>
+</ul>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="02-pract2-dades.html#cb6-1" tabindex="-1"></a><span class="fu">setwd</span>(path<span class="sc">/</span>to<span class="sc">/</span>your<span class="sc">/</span>folder<span class="sc">/</span>with<span class="sc">/</span>data)</span></code></pre></div>
+<ul>
+<li>Importa les dades. Fixa’t en el format dels dos fitxer. Fes servir la següent funció:</li>
+</ul>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="02-pract2-dades.html#cb7-1" tabindex="-1"></a><span class="co"># carregar dades</span></span>
+<span id="cb7-2"><a href="02-pract2-dades.html#cb7-2" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;dades/practR_metadades.csv&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;,&quot;</span>)</span>
+<span id="cb7-3"><a href="02-pract2-dades.html#cb7-3" tabindex="-1"></a>data_raw <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;dades/practR_rnadata.csv&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;,&quot;</span>)</span></code></pre></div>
+<p><span style="color: orange;"><em>Nota: quan segueixis un tutorial és molt important mantenir els noms dels objecte per evitar error inecessaris</em></span></p>
+</div>
+<div id="anàlisi-exploratori-de-la-metadada" class="section level3 hasAnchor">
+<h3>2.3. Anàlisi exploratori de la metadada<a href="02-pract2-dades.html#anàlisi-exploratori-de-la-metadada" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>És molt important conèixer quines mostres estem analitzant, quins grups hi ha, dimensions i característiques d’aquests grups abans de començar a analitzar les dades.</p>
+<ul>
+<li>Quina estuctura té el dataset <code>metadata</code>? Les variables són les columnes o les files?</li>
+</ul>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="02-pract2-dades.html#cb8-1" tabindex="-1"></a><span class="fu">str</span>(metadata)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    360 obs. of  7 variables:
+##  $ X         : chr  &quot;mostra1&quot; &quot;mostra2&quot; &quot;mostra3&quot; &quot;mostra4&quot; ...
+##  $ Tractament: chr  &quot;control&quot; &quot;control&quot; &quot;control&quot; &quot;control&quot; ...
+##  $ Temps     : int  0 1 4 24 0 1 4 24 0 1 ...
+##  $ Individu  : int  1 1 1 1 2 2 2 2 3 3 ...
+##  $ Edat      : int  50 50 50 50 34 34 34 34 70 70 ...
+##  $ Sexe      : chr  &quot;F&quot; &quot;F&quot; &quot;F&quot; &quot;F&quot; ...
+##  $ Xpert     : num  2.88 7.88 4.09 8.83 9.4 ...</code></pre>
+<ul>
+<li>Quines dimensions té <code>metadata</code> (nombre de files i columnes)?</li>
+</ul>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="02-pract2-dades.html#cb10-1" tabindex="-1"></a><span class="fu">dim</span>(metadata)</span></code></pre></div>
+<pre><code>## [1] 360   7</code></pre>
+<ul>
+<li>Imprimeix el nom de les variables</li>
+</ul>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="02-pract2-dades.html#cb12-1" tabindex="-1"></a><span class="fu">colnames</span>(metadata) <span class="co"># Nom de les variables</span></span></code></pre></div>
+<pre><code>## [1] &quot;X&quot;          &quot;Tractament&quot; &quot;Temps&quot;      &quot;Individu&quot;   &quot;Edat&quot;      
+## [6] &quot;Sexe&quot;       &quot;Xpert&quot;</code></pre>
+<ul>
+<li>Tenen el nom correcte les files? Quin hauria de ser el nom de les files?</li>
+</ul>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="02-pract2-dades.html#cb14-1" tabindex="-1"></a><span class="fu">rownames</span>(metadata) [<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] </span></code></pre></div>
+<pre><code>##  [1] &quot;1&quot;  &quot;2&quot;  &quot;3&quot;  &quot;4&quot;  &quot;5&quot;  &quot;6&quot;  &quot;7&quot;  &quot;8&quot;  &quot;9&quot;  &quot;10&quot;</code></pre>
+<ul>
+<li><p>Perquè serveix afegir <code>[1:10]</code> al codi anterior?</p></li>
+<li><p>Defineix el nom de les files amb el respectiu nom de la mostra. Primer has de trobar a quina columna estan definits el nom de les mostres:</p></li>
+</ul>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="02-pract2-dades.html#cb16-1" tabindex="-1"></a>metadata<span class="sc">$</span>X[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># columna que conté el nom de les mostres</span></span></code></pre></div>
+<pre><code>##  [1] &quot;mostra1&quot;  &quot;mostra2&quot;  &quot;mostra3&quot;  &quot;mostra4&quot;  &quot;mostra5&quot;  &quot;mostra6&quot; 
+##  [7] &quot;mostra7&quot;  &quot;mostra8&quot;  &quot;mostra9&quot;  &quot;mostra10&quot;</code></pre>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="02-pract2-dades.html#cb18-1" tabindex="-1"></a><span class="fu">rownames</span>(metadata) <span class="ot">&lt;-</span> metadata<span class="sc">$</span>X <span class="co"># definim el nom de les files (mostres)</span></span>
+<span id="cb18-2"><a href="02-pract2-dades.html#cb18-2" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="02-pract2-dades.html#cb18-3" tabindex="-1"></a>metadata <span class="ot">&lt;-</span> metadata[,<span class="sc">-</span><span class="dv">1</span>] <span class="co">#eliminem columnes inecessàries</span></span></code></pre></div>
+<ul>
+<li>Converteix a factor les variables <code>Tractament</code>, <code>Temps</code>, <code>Individu</code> i <code>Sexe</code>.</li>
+</ul>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="02-pract2-dades.html#cb19-1" tabindex="-1"></a>metadata<span class="sc">$</span>Individu <span class="ot">&lt;-</span> <span class="fu">factor</span>(metadata<span class="sc">$</span>Individu)</span>
+<span id="cb19-2"><a href="02-pract2-dades.html#cb19-2" tabindex="-1"></a>metadata<span class="sc">$</span>Temps <span class="ot">&lt;-</span> <span class="fu">factor</span>(metadata<span class="sc">$</span>Temps, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">24</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;basal&quot;</span>, <span class="st">&quot;1set&quot;</span>, <span class="st">&quot;4set&quot;</span>, <span class="st">&quot;24set&quot;</span>))</span>
+<span id="cb19-3"><a href="02-pract2-dades.html#cb19-3" tabindex="-1"></a>metadata<span class="sc">$</span>Sexe <span class="ot">&lt;-</span> <span class="fu">factor</span>(metadata<span class="sc">$</span>Sexe)</span></code></pre></div>
+<ul>
+<li><p>Comprova que l’estructura de <code>metadata</code> sigui correcte ara.</p></li>
+<li><p>Descriu les diferents categories de cada factor (<code>Tractament</code>, <code>Temps</code>, <code>Individu</code> i <code>Sexe</code>).</p></li>
+<li><p>Canvia l’ordre de les categories del factor <code>Sexe</code> (primer M i després F). Després de canviar l’ordre, la funció <code>table()</code> ens permet visualitzar l’ordre de les categories. Això és molt útil per quan volem visualitzar la variable.</p></li>
+</ul>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="02-pract2-dades.html#cb20-1" tabindex="-1"></a><span class="fu">table</span>(metadata<span class="sc">$</span>Sexe) <span class="co"># ordre predeterminat (normalment ordre alfabètic)</span></span></code></pre></div>
+<pre><code>## 
+##   F   M 
+## 196 164</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="02-pract2-dades.html#cb22-1" tabindex="-1"></a>metadata<span class="sc">$</span>Sexe <span class="ot">&lt;-</span> <span class="fu">factor</span>(metadata<span class="sc">$</span>Sexe, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;M&quot;</span>, <span class="st">&quot;F&quot;</span>)) <span class="co"># mitjançant &quot;levels&quot; definim l&#39;odre de les categories</span></span>
+<span id="cb22-2"><a href="02-pract2-dades.html#cb22-2" tabindex="-1"></a><span class="fu">table</span>(metadata<span class="sc">$</span>Sexe) <span class="co"># comprovem si s&#39;ha guardat l&#39;ordre correcte</span></span></code></pre></div>
+<pre><code>## 
+##   M   F 
+## 164 196</code></pre>
+<ul>
+<li>Quan visualitzem la taula amb un gràfic de barres, l’odre de les etiquetes correspon a l’ordre de les columnes:</li>
+</ul>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="02-pract2-dades.html#cb24-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(metadata<span class="sc">$</span>Sex))</span></code></pre></div>
+<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-12-1.png" width="50%" /></p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Torna a canviar l’ordre (primer F i després M) i representa-ho amb un gràfic de barres.
+</p>
+</div>
+<div id="a-anàlisi-descriptiu-univariant" class="section level4 hasAnchor">
+<h4>a) Anàlisi descriptiu univariant<a href="02-pract2-dades.html#a-anàlisi-descriptiu-univariant" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Variables Numèriques</strong></p>
+<p>Primer farem un anàlisi descriptiu (gràfic i numèric) de les variables numèriques.</p>
+<ul>
+<li><p>Quines són les variables numèriques dins de <code>metadata</code>? Defineix-les. Si cal, busca informació adicional per entendre de quines variables es tracta.</p></li>
+<li><p>Fes un resum numèric de la variable <code>Edat</code>.</p></li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="02-pract2-dades.html#cb25-1" tabindex="-1"></a><span class="fu">summary</span>(metadata<span class="sc">$</span>Edat)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   22.00   34.00   48.00   49.38   62.00   79.00</code></pre>
+<ul>
+<li>Fes un gràfic per resumir la variable <code>Edat</code>. Quin gràfic genera la funció <code>hist()</code>?</li>
+</ul>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="02-pract2-dades.html#cb27-1" tabindex="-1"></a><span class="fu">hist</span>(metadata<span class="sc">$</span>Edat)</span></code></pre></div>
+<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-15-1.png" width="50%" /></p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Fes un resum numèric i un gràfic de la variable <code>Xpert</code>
+</p>
+</div>
+<p><strong>Variables Categòriques</strong></p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Resumeix numèricament (taula de freqüències) i gràficament (gràfic de barres) cada una de les variables categòriques per separat: <code>Sexe</code> i <code>Tractament</code>
+</p>
+</div>
+</div>
+<div id="b-anàlisi-descriptiu-bivariant" class="section level4 hasAnchor">
+<h4>b) Anàlisi descriptiu bivariant<a href="02-pract2-dades.html#b-anàlisi-descriptiu-bivariant" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Podria ser que algunes d’aquestes variables estiguessin relacionades. Ara explora la relació entre elles.</p>
+<ul>
+<li><p>Concretament, descriu la relació del <code>Tractament</code> amb <code>Sexe</code> numèricament. Fes també un gràfic per visualitzar la relació.</p></li>
+<li><p>Descriu la relació del <code>Tractament</code> amb <code>Edat</code> amb un gràfic.</p></li>
+<li><p>Descriu la relació del <code>Tractament</code> amb <code>Xpert</code> amb un gràfic. Calcula també els estadístics descriptius més interessants (numèric).</p></li>
+<li><p>Escriu una petita conclusió dels resultats de l’anàlisi exploratòria (uni i bivariant)</p></li>
+</ul>
+</div>
+</div>
+<div id="anàlisi-exploratori-de-les-abundàncies-gèniques" class="section level3 hasAnchor">
+<h3>2.4. Anàlisi exploratori de les abundàncies gèniques<a href="02-pract2-dades.html#anàlisi-exploratori-de-les-abundàncies-gèniques" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Ara comencem a analitzar la taula d’abundàncies dels gens seqüenciats (<code>data_raw</code>).</p>
+<ul>
+<li>Quina és l’estructura del dataset <code>data_raw</code>. Quants gens hi ha? Totes les columnes de <code>data_raw</code> corresponen a un gen?</li>
+</ul>
+<div id="a-posada-a-punt-de-la-taula-dabundàncies" class="section level4 hasAnchor">
+<h4>a) Posada a punt de la taula d’abundàncies<a href="02-pract2-dades.html#a-posada-a-punt-de-la-taula-dabundàncies" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><p>Extreu el nom de les mostres. Crea una còpia del dataset (anomenat <code>data0</code>) i defineix el nom de les files corresponents a cada mostra (pensa en eliminar columnes inecessàries al final).</p></li>
+<li><p>Imprimeix (visualitza) les abundàncies dels 7 primers gens en les 5 primeres mostres (de l’objecte <code>data0</code>)</p></li>
+<li><p>Extreu el nom dels gens i guarda’ls en un vector que anomenaràs <code>gene_names</code>. Mostra el nom del gen 23, 24 i 38 (fes-ho amb una única línia de codi).</p></li>
+</ul>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="02-pract2-dades.html#cb28-1" tabindex="-1"></a>gene_names <span class="ot">&lt;-</span> <span class="fu">colnames</span>(data0)</span></code></pre></div>
+<ul>
+<li>Pots comprovar si tots els gens són presents a totes les mostres? Hi ha algun gen que no s’hagi detectat a cap mostra?</li>
+</ul>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="02-pract2-dades.html#cb29-1" tabindex="-1"></a><span class="co"># Detectem els gens que no estiguin presents a cap mostra</span></span>
+<span id="cb29-2"><a href="02-pract2-dades.html#cb29-2" tabindex="-1"></a>zero_rm <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colSums</span>(data0) <span class="sc">==</span> <span class="dv">0</span>) </span>
+<span id="cb29-3"><a href="02-pract2-dades.html#cb29-3" tabindex="-1"></a><span class="fu">length</span>(zero_rm) <span class="co"># quants n&#39;hi ha?</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<ul>
+<li>Elimina aquells gens que no hagin set detectats en cap mostra. Per fer-ho crea un nou dataset anomenat <code>data</code> sense les columnes identificades al codi anterior (dins del vector <code>zero_rm</code>).</li>
+</ul>
+</div>
+<div id="b-explorar-la-distribució-de-les-abundàncies" class="section level4 hasAnchor">
+<h4>b) Explorar la distribució de les abundàncies<a href="02-pract2-dades.html#b-explorar-la-distribució-de-les-abundàncies" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A partir d’ara ja podem treballar amb el dataset <code>data</code>. Hem vist que la majoria de gens (variables) d’RNAseq tenen una distribució amb una cua a la dreta.</p>
+<ul>
+<li><p>Visualitza la distribució del Gen_1 (tingues en compte quin tipus de variable és i, per tant, quin gràfic representa millor la seva distribució). Et sembla que té una distribució normal?</p></li>
+<li><p>Realitza un test estadístic per comprovar si realment té o no una distribució normal. Explica el resultat del test</p></li>
+<li><p>Pots extreure’n només el p.value?</p></li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="02-pract2-dades.html#cb31-1" tabindex="-1"></a><span class="fu">shapiro.test</span>(data<span class="sc">$</span>Gen_1)<span class="sc">$</span>p.value</span></code></pre></div>
+<pre><code>## [1] 5.235803e-21</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Visualitza la distribució del <code>Gen 15</code> i comprova si segueix una distribució normal.
+</p>
+</div>
+<ul>
+<li>Ara crearem una funció per comprovar la normalitat de tots els gens del dataset. Ho farem amb la funció <code>apply</code> de la següent manera:</li>
+</ul>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="02-pract2-dades.html#cb33-1" tabindex="-1"></a><span class="co"># Normalitat de tots els gens (funció apply)</span></span>
+<span id="cb33-2"><a href="02-pract2-dades.html#cb33-2" tabindex="-1"></a>normality.test<span class="ot">&lt;-</span><span class="fu">apply</span>(data, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">shapiro.test</span>(x)<span class="sc">$</span>p.value)</span>
+<span id="cb33-3"><a href="02-pract2-dades.html#cb33-3" tabindex="-1"></a><span class="fu">head</span>(normality.test)</span></code></pre></div>
+<pre><code>##        Gen_1        Gen_2        Gen_3        Gen_4        Gen_5        Gen_6 
+## 5.235803e-21 1.720053e-19 5.303406e-01 1.126407e-06 8.471637e-22 7.856582e-09</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Explica amb les teves paraules els arguments de dins la funció apply (pots ajudar-te del “help”)
+</p>
+</div>
+<ul>
+<li>Quants gens segueixen una distribució normal (defineix el llindar de significació a 0.05)?</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="exportar-les-dades-creades" class="section level2 hasAnchor">
+<h2>3. Exportar les dades creades<a href="02-pract2-dades.html#exportar-les-dades-creades" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Arribats en aquest punt, necessitem guardar el nou dataset <code>data</code> el qual hem filtrat aquells absents a totes les mostres. Pots exportar el dataset en forma de fitxer de test .csv de la següent manera:</p>
+<pre><code>write.csv2(data, &quot;practR_rnadata_filt.csv&quot;)</code></pre>
+</div>
+<div id="bibliografia" class="section level2 hasAnchor">
+<h2>Bibliografia<a href="02-pract2-dades.html#bibliografia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>Yihui Xie, Christophe Dervieux, Emily Riederer (2024) R Markdown Cookbook. Online version from <a href="https://bookdown.org/yihui/rmarkdown-cookbook/" class="uri">https://bookdown.org/yihui/rmarkdown-cookbook/</a></p></li>
+<li><p>Ethan G. Thompson, et al. (2017) Host blood RNA signatures predict the outcome of tuberculosis treatment, Tuberculosis, Volume 107 (48-58) ISSN 1472-9792 <a href="https://doi.org/10.1016/j.tube.2017.08.004" class="uri">https://doi.org/10.1016/j.tube.2017.08.004</a>.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="01-pract1-taller_gust.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="03-pract3-anovaI.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

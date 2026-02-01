@@ -1,0 +1,342 @@
+===============================
+   UVic-UCC · Bookdown GitBook Style
+   Paleta: Vermell #CD0B2D, Gris #3B3B3B, Blanc #FFFFFF
+   =============================== */
+
+/* Tipografia base i layout */
+html, body {
+  color: #3B3B3B;
+  background-color: #FFFFFF;
+  font-family: "Noto Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+/* Cos del llibre (columna dreta) */
+.book .book-body .page-wrapper .page-inner {
+  max-width: 980px;
+  padding: 2rem 2rem;
+}
+
+/* Banner institucional a la portada */
+.uvic-banner {
+  border-bottom: 4px solid #CD0B2D;
+  padding: 1.2rem 0;
+  margin-bottom: 1.5rem;
+}
+
+/* Encapçalaments */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 1.6rem;
+  margin-bottom: 0.8rem;
+}
+
+h1 {
+  color: #CD0B2D;
+  border-bottom: 3px solid #CD0B2D;
+  padding-bottom: 0.4rem;
+}
+
+h2, h3 {
+  color: #1F1F1F;
+}
+
+/* Enllaços */
+a {
+  color: #CD0B2D;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #A50A23;
+  text-decoration: underline;
+}
+
+/* ===============================
+   MENÚ LATERAL (GITBOOK)
+   =============================== */
+
+.book .book-summary {
+  background: #F7F7F7;
+  border-right: 1px solid #E5E5E5;
+}
+
+.book .book-summary .summary li a {
+  color: #3B3B3B;
+  padding: 0.3rem 1rem;
+  display: block;
+  border-left: 4px solid transparent;
+}
+
+/* Hover */
+.book .book-summary .summary li a:hover {
+  background: #ECECEC;
+  border-left-color: #CD0B2D;
+}
+
+/* ACTIU (selector corregit) */
+.book .book-summary .summary li.active > a,
+.book .book-summary .summary li > a[aria-current="page"] {
+  font-weight: 600;
+  color: #CD0B2D;
+  background: #EFEFEF;
+  border-left-color: #CD0B2D;
+}
+
+/* Capçalera gitbook */
+.book .book-header {
+  background: #FFFFFF;
+  border-bottom: 3px solid #CD0B2D;
+}
+
+.book .book-header .btn {
+  color: #3B3B3B;
+}
+
+/* ===============================
+   Taules
+   =============================== */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+
+thead th {
+  background: #CD0B2D;
+  color: #FFFFFF;
+  font-weight: 700;
+  padding: 0.6rem;
+  border: none;
+}
+
+tbody td, tbody th {
+  border: 1px solid #E6E6E6;
+  padding: 0.55rem 0.65rem;
+}
+
+tbody tr:nth-child(odd) {
+  background: #FAFAFA;
+}
+
+/* ===============================
+   Codis (chunks)
+   =============================== */
+
+pre, code, kbd, samp {
+  font-family: "SFMono-Regular", "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+pre code {
+  display: block;
+  background: #F5F5F5;
+  border-left: 4px solid #CD0B2D;
+  padding: 0.8rem 1rem;
+  overflow-x: auto;
+}
+
+code {
+  background: #F2F2F2;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+}
+
+/* ===============================
+   Figures
+   =============================== */
+
+img, .figure img {
+  display: block;
+  margin: 1rem auto;
+  max-width: 100%;
+  border: 1px solid #EAEAEA;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.figure .caption, figcaption {
+  text-align: center;
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+
+/* ===============================
+   Bloc destacat (callout)
+   =============================== */
+
+.callout {
+  border-left: 6px solid #CD0B2D;
+  background: #FFF6F7;
+  padding: 0.9rem 1rem;
+  margin: 1rem 0;
+}
+
+.callout h4 {
+  margin-top: 0;
+  color: #CD0B2D;
+}
+
+/* ===============================
+   Botons
+   =============================== */
+
+.btn-primary {
+  background-color: #CD0B2D;
+  border-color: #CD0B2D;
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: #A50A23;
+  border-color: #A50A23;
+}
+
+/* ===============================
+   Footer institucional
+   =============================== */
+
+.footer-note {
+  border-top: 1px solid #E5E5E5;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  color: #777;
+  font-size: 0.95rem;
+}
+
+/* Accessibilitat */
+:focus {
+  outline: 3px solid #FDB8BF;
+  outline-offset: 2px;
+}
+
+/* Responsiu */
+@media (max-width: 992px) {
+  .book .book-body .page-wrapper .page-inner {
+    padding: 1.25rem 1.25rem;
+    max-width: 100%;
+  }
+  h1 { font-size: 1.8rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.25rem; }
+}
+
+/* ===== Títol del llibre (capçalera gitbook) ===== */
+
+/* Contenidor de capçalera */
+.book .book-header {
+  background: #FFFFFF;
+  border-bottom: 4px solid #CD0B2D; /* franja UVic */
+}
+
+/* Títol del llibre a la capçalera (text clicable) */
+.book .book-header .book-title {
+  color: #CD0B2D;               /* vermell UVic */
+  font-weight: 800;             /* més contundent */
+  letter-spacing: 0.4px;        /* lleugera separació */
+  text-transform: none;         /* manté majúscules/minúscules originals */
+}
+
+/* Estat hover del títol del llibre a capçalera */
+.book .book-header .book-title:hover {
+  color: #A50A23;               /* vermell UVic una mica més fosc en hover */
+  text-decoration: none;        /* sense subratllat */
+}
+
+/* ===== Títol del llibre al sumari (menú esquerra) ===== */
+.book .book-summary .book-title {
+  color: #CD0B2D;
+  font-weight: 700;
+  font-size: 0.8rem;
+  margin: 0.6rem 1rem 0.8rem 1rem;
+  display: block;
+  border-bottom: 2px solid #CD0B2D;  /* línia de separació corporativa */
+  padding-bottom: 0.4rem;
+}
+
+/* Si hi ha un enllaç al títol del llibre dins el sumari */
+.book .book-summary .book-title a {
+  color: #CD0B2D;
+  text-decoration: none;
+}
+.book .book-summary .book-title a:hover {
+  color: #A50A23;
+  text-decoration: none;
+}
+
+/* ===== Estils per destacar TASQUES (UVic-UCC) ===== */
+
+/* 1) Frase de tasca inline (per dins d'un paràgraf) */
+.task-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.15rem 0.45rem;
+  border-left: 4px solid #CD0B2D;    /* accent UVic */
+  background: #FFF6F7;               /* vermell molt suau */
+  color: #3B3B3B;
+  border-radius: 3px;
+  font-weight: 600;
+  white-space: normal;                /* deixa saltar de línia */
+}
+.task-inline .ti {
+  color: #CD0B2D;                     /* iconet corporatiu */
+  font-style: normal;                 /* evitarem cursiva */
+  font-weight: 800;
+}
+
+/* 2) Bloc de tasca (per instruccions més extenses) */
+.task-box {
+  border-left: 6px solid #CD0B2D;
+  background: #FFF6F7;
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+.task-box .task-title {
+  margin: 0 0 0.35rem 0;
+  font-weight: 700;
+  color: #CD0B2D;
+}
+.task-box p {
+  margin: 0.25rem 0 0.25rem 0;
+}
+
+/* 3) Llista de tasques (amb check o pas) */
+.task-list {
+  list-style: none;
+  margin: 0.6rem 0 1rem 0;
+  padding: 0;
+}
+.task-list li {
+  position: relative;
+  padding: 0.35rem 0.5rem 0.35rem 2.0rem; /* espai per a l'icona */
+  background: #FFF6F7;
+  border-left: 4px solid #CD0B2D;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+.task-list li::before {
+  content: "✔";                       /* pots canviar-ho per "→" o "●" */
+  position: absolute;
+  left: 0.8rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #CD0B2D;
+  font-weight: 800;
+}
+
+/* Accessibilitat: focus clar si hi ha enllaços dins les tasques */
+.task-inline a, .task-box a, .task-list a {
+  color: #CD0B2D;
+  text-decoration: none;
+}
+.task-inline a:focus, .task-box a:focus, .task-list a:focus {
+  outline: 3px solid #FDB8BF;
+  outline-offset: 2px;
+}
+.task-inline a:hover, .task-box a:hover, .task-list a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,93 @@
+---
+title: "Pràctiques per l'anàlisi de dades òmiques amb R"
+subtitle: "Dades Òmiques i Bioinformàtica I - 2n curs Biomedicina (UVic - UCC)"
+author: "Meritxell Pujolassos Tanyà"
+date: "2026"
+site: bookdown::bookdown_site
+output: 
+  bookdown::gitbook:
+    number_sections: false
+---
+
+# Presentació del curs
+
+Aquest llibre recull les **pràctiques del curs d'Anàlisi de Dades i Bioinformàtica I**, pensades perquè l’estudiant es familiaritzi amb l’entorn d’R, la manipulació de dades, l’estadística bàsica i la generació d’informes reproduïbles.
+
+L’objectiu d'aquest material és proporcionar les eines bàsiques per:
+
+-   Importar i exportar dades a R
+
+-   Manipular, filtrar i seleccionar grans volums de dades
+
+-   Entendre i saber aplicar els principals anàlisis estadístics en cada cas
+
+-   Visualitzar els resultats amb els gràfic adients per cada tipologia de dades
+
+-   Comunicar els resultats de manera reproduïble
+
+<br>
+
+## Estructura del llibre i els seus continguts
+
+Cada pràctica és un capítol independent en el qual es treballen els continguts de l'assignatura de **Dades Òmiques i Bioinformàtica I** de 2n curs de Biomedicina de la Universitat de Vic - Universitat central de Catalunya ([Pla de treball de l'assignatura](https://www.uvic.cat/assignatura/6913)):
+
+
+**Tema 1.** Introducció al món de les dades òmiques: Pràctica 1 i Pràctica 2
+
+**Tema 2.** Anàlisi de Variança: Pràctica 3 i Pràctica 4
+
+**Tema 3.** Estadística no paramètrica: Pràctica 5 i Pràctica 6
+
+**Tema 4.** Models de regressió: Pràctica 7, Pràctica 8, Pràctica 9, Pràctica 10
+
+**Tema 5.** Visualització de dades Òmiques: Pràctica 11
+
+<br>
+
+## Desenvolupament de les pràctiques
+
+**Durant la pràctica** 
+
+(1) Caldrà seguir la pràctica i realitzar un RMarkdown amb tots els passos seguits.
+
+(2) A l'aula virtual de l'assignatura trobaràs un qüestionari associat a cada pràctica. Cal respondre'l abans de la data límit de tancament i escriure el codi al mateix document RMarkdown de la pràctica.
+
+**Al finalitzar la pràctica**
+
+Caldrà entregar el document lliurable (.html) amb el codi seguit durant la pràctica, i el codi que permet respondre a les preguntes del qüestionari.
+
+
+## Requisits
+
+-   R i RStudio instal·lats
+
+-   Coneixements bàsics de biociències i estadística  
+
+-   Interès per l’anàlisi de dades i la reproduïbilitat científica 
+
+
+
+## Crèdits
+
+Material preparat per Meritxell Pujolassos Tanyà, docent al **Departament de Biociències de la Universitat de Vic - Universitat Central de Cataluna**. 
+
+
+
+<!-- =======================
+     FOOTER INSTITUCION
+     ======================= -->
+
+<div class="footer-note" style="margin-top:3rem; padding-top:1rem; text-align:center;">
+  <img src="img/uvic-logo.png" alt="UVic-UCC" style="height:42px; display:block; margin:0 auto 0.6rem;">
+  <div style="font-size:1rem; font-weight:600; color:#3B3B3B;">
+    Universitat de Vic – Universitat Central de Catalunya
+  </div>
+  <div style="margin-top:0.25rem; color:#555;">
+    Facultat de Ciències, Tecnologia i Enginyeries
+    C/ de la Laura, 13 · 08500 Vic (Barcelona)
+  </div>
+  <div style="margin-top:0.5rem; color:#777;">
+    © `r format(Sys.Date(), '%Y')` UVic‑UCC · Material docent d’ús exclusivament acadèmic.
+  </div>
+</div>
+

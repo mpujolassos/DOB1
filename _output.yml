@@ -1,0 +1,9 @@
+bookdown::gitbook:
+  css: style.css
+  split_by: "rmd"      # <-- Força noms basats en els .Rmd
+  config:
+    toc:
+      collapse: section
+    search: true
+    fontsettings:
+      theme: white
