@@ -1,0 +1,337 @@
+# Pràctica 3.   Testos d'igualtat de mitjanes per dues o més poblacions: T-test i ANOVA
+
+## Objectius de la pràctica
+
+Els objectius principals de la pràctica són: 
+  
+  -    Manipulació de data.frames (combinar data.frames, filtrar files, seleccionar columnes...)
+  -    Aplicar testos de comparació de mitjanes (t test o ANOVA)
+  -    Comprovar els supòsits de normalitat i homocedasticitat
+  -    Compendre les hipòtesis estadístiques associades a aquests testos i prendre desicions a partir dels seus resultats
+  -    Visualitzar de manera adequada les dades
+  -    Relacionar les hipòtesis científiques plantejades inicialment amb els resultats estadístics
+
+ 
+ <br>
+ 
+## 1. Importar dades a R
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou RMarkdown anomenat "Practica3" i guarda'l a la carpeta de Pràctiques. 
+</p>
+</div>
+
+-   Crea un nou *chunk* que inclogui les diferents llibreries que utilitzarem durant la pràctica:
+
+```{r message=FALSE, warning=FALSE}
+library(ggpubr)
+library(car)
+```
+
+-   En un altre *chunk* defineix el teu directori de treball
+
+
+```{r eval=FALSE, include=TRUE}
+setwd("path/to/your/folder/with/data")
+```
+
+
+-   Carrega les dades. A partir d'ara treballaràs amb el fitxer d'abundàncies filtrat a la pràctica anterior (fitxer d'abundàncies de gens: "*practR_rnadata_filt.csv*" i  fitxer de metadades: "*practR_metadades.csv*")
+
+```{r}
+# carregar dades
+metadata <- read.csv2("dades/practR_metadades.csv", dec = ",", row.names = 1)
+data <- read.csv2("dades/practR_rnadata_filt.csv", dec = ",", row.names = 1)
+```
+
+<span style="color: orange;">*Nota: Fixa't que si importes les dades amb l'argument `row.names = 1`, automàticament es llegeix la primer columna com a noms de les files.</span>
+
+-   Comprova que hi ha els mateixos noms de les files en els dos datasets (metadata i data)
+
+```{r}
+# comprovem que els dos datasets tenen el mateix ordre de files (mostres)
+all(rownames(data) == rownames(metadata)) 
+```
+
+-   Combina les dues matrius de dades en un sol data.frame (l'anomenarem `df`):
+```{r}
+# combinem els dos datasets en un de sol
+df <- cbind(metadata, data)
+```
+
+-   Fes les transformacions necessàries:
+```{r}
+# transformem a factor
+df$Individu <- factor(df$Individu)
+df$Temps <- factor(df$Temps, levels = c(0, 1, 4, 24), labels = c("basal", "1set", "4set", "24set"))
+df$Sexe <- factor(df$Sexe)
+```
+
+Ara ja tenim les dades a punt, podem començar els anàlisis
+
+<br>
+
+
+## 2. Selecció d'un subconjunt de dades
+
+En aquesta pràctica analitzarem l'expressió d'alguns gens a **temps basal** (recorda que a l'estudi hi ha mostres a temps basal, però també a 1, 4 i 24 setmanes després d'iniciar el tractament).
+
+-   Selecciona només les mostres preses a temps basal:
+
+```{r}
+# definim les files que compleixen els requisits especificats ($Temps == "basal")
+ind_basal <- which(df$Temps == "basal") 
+
+# seleccionem només aquestes files en un nou data.frame
+df0 <- df[ind_basal, ] 
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Comprova que has seleccionat les mostres que tocaven
+</p>
+</div>
+
+<br>
+
+## 3. Comparació de l'expressió entre dues poblacions
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    Es vol saber si l'expressió del Gen 32 a temps basal és diferent entre els individus infectats no curats i els individus control
+  </p>
+</div>
+
+
+Per poder resoldre la pregunta de recerca, caldrà comprovar si hi ha diferències significatives en l'expressió del Gen 32 entre dues poblacions: **Controls** vs **No Curats**. 
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Aquesta comparació ja l'hem estudiat. Quin test haurem d'aplicar?
+</p>
+</div>
+
+<br>
+
+### Exploració de les dades
+
+Per fer-ho s'han de seleccionar prèviament només aquelles mostres (a temps basal) que pertanyen a individus controls i a individus no curats (els curats els deixem per més endavant).
+
+-   Selecciona a partir de `df0` aquelles mostres que són controls o no curats:
+
+```{r}
+# definim les files que compleixen els requisits especificats ($Tractament == "control" o bé $Tractament == "no curat")
+ind0_ctrl_nc <- which(df0$Tractament == "control" | df0$Tractament == "no curat" ) # el simbol | indica "o bé"
+
+# seleccionem les files desitjades del data.frame df0
+df0_ctrl_nc <- df0[ind0_ctrl_nc, ] # dataset basal amb controls i no curats
+
+head(df0_ctrl_nc)
+```
+
+-   Visualitza l'expressió del Gen 32 en controls i en no curats. Per fer-ho aplica la funció `ggboxplot()` de la llibreria `ggpubr`:
+
+```{r}
+ggboxplot(data = df0_ctrl_nc, x = "Tractament", y = "Gen_32", 
+          color = "Tractament",
+          palette = c("steelblue1", "orange"),
+          add = "jitter")
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>S'observen diferències aparents entre els dos grups? Descriu les dades i planteja un possible resultat. 
+</p>
+</div>
+
+<br>
+
+<br>
+
+### Anàlisi estadística
+
+Per determinar si efectivament hi ha o no diferències significatives entre controls i no curats haurem d'aplicar un test estadístic: **T test d'igualtat de mitjanes per mostres independents**
+
+Les hipòtesis del T test són:
+$$H_0: \mu_{control} = \mu_{no.curat}$$
+$$H_a: \mu_{control} \neq \mu_{no curat}$$
+
+**1r.**   Abans d'aplicar el T test cal **comprovar els supòsits**: 
+
+
+I)    Cal comprovar que les dues mostres provenen de poblacions amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+-   Aplica el test de Shapiro:
+
+```{r}
+tapply(df0_ctrl_nc$Gen_32, df0_ctrl_nc$Tractament, shapiro.test)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic (tingues en compte les hipòtesis estadístiques del test) 
+</p>
+</div>
+
+<br>
+
+II)    Cal conèixer si les *variàncies dels dos grups* són iguals o no (es comprova mitjançant el test F d'igualtat de variàncies: `var.test()`).
+
+-   Aplica test F d'igualtat de variàncies:
+```{r}
+var.test(df0_ctrl_nc$Gen_32~df0_ctrl_nc$Tractament)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic (tingues en compte les hipòtesis estadístiques del test) 
+</p>
+</div>
+
+<br>
+
+**2n.**   En base als resultats dels dos testos anteriors aplica el **test de comparació de mitjanes més adient**.
+
+```{r}
+t.test(df0_ctrl_nc$Gen_32~df0_ctrl_nc$Tractament, var.equal = T)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic (tingues en compte les hipòtesis estadístiques del test) 
+</p>
+  <p>Escriu les conclusions de l'anàlisi: relaciona el resultat del test estadístic amb la pregunta de recerca 
+</p>
+</div>
+
+<br>
+
+## 4. Comparació de l'expressió entre més de dues poblacions
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    Es vol saber si l'expressió del Gen 32 a temps basal és diferent entre els individus infectats no curats, els curats i els controls
+  </p>
+</div>
+
+
+### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Fes un gràfic per representar l'expressió del Gen 32 en els tres grups estudiats. Pensa bé quin és el data.frame que conté els tres grups de Tractament a temps basal (control, curat i no curat). 
+  En el gràfic, fes coincidir els mateixos colors de les caixes que en el boxplot anterior.</p>
+</div>
+
+
+```{r eval=FALSE, include=FALSE}
+ggboxplot(data = df0, x = "Tractament", y = "Gen_32")
+```
+
+<br>
+
+### Anàlisi estadística
+
+Per determinar si efectivament hi ha o no diferències significatives entre els tres grups haurem d'aplicar un test estadístic: **ANOVA**
+
+Les hipòtesis de l'ANOVA són:
+
+$$H_0: \mu_{control} = \mu_{curat} = \mu_{no.curat}$$
+$$H_a: \mu_{control} \neq \mu_{curat} ;  \mu_{control} \neq \mu_{no.curat} ;  \mu_{curat} \neq \mu_{no.curat}$$
+<br>
+
+
+**1r.**   Abans d'aplicar l'ANOVA cal **comprovar els supòsits**: 
+
+I)    Comprovar que totes mostres provenen de poblacions amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+-   Aplica el test de Shapiro pels tres grups
+```{r}
+tapply(df0$Gen_32, df0$Tractament, shapiro.test)
+```
+
+-   Visualitza amb un QQ plot la normalitat de les dades (fes-ho amb la funció `ggqqplot()`). Les dades (de cada grup) s'ajusten a la línia?
+```{r}
+ggqqplot(df0, x = "Gen_32", 
+         facet.by = "Tractament",
+         short.panel.labs = FALSE)
+```
+
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic i del gràfic (tingues en compte les hipòtesis estadístiques del test) 
+</p>
+</div>
+
+<br>
+
+II)   Conèixer si les variàncies dels tres grups segueixen l'*homocedasticitat* (es comprova mitjançant el test de Levene: `leveneTest()`). Per aplicar la funció `leveneTest()` hauràs de carregar la llibreria `car` (ho hauries d'haver fet al principi, al primer *chunk*).
+```{r message=FALSE, warning=FALSE}
+leveneTest(df0$Gen_32~df0$Tractament)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic (tingues en compte les hipòtesis estadístiques del test) 
+</p>
+</div>
+
+III) Identificar que les dades són *independents*: en aquest cas, els individus control, no curats i curats són subjectes independents entre ells.
+
+<br>
+
+2n.   Si es compleixen els tres supòsits es pot aplicar l'**ANOVA**:
+```{r}
+# test anova
+an1 <- aov(df0$Gen_32 ~ df0$Tractament)
+
+# resultats de l'anova
+summary(an1)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic (tingues en compte les hipòtesis estadístiques del test) 
+</p>
+</div>
+
+<br>
+
+Una alternativa per comprovar la normalitat de les dades és contrastar si els residus de l'anova segueixen una distribució normal:
+
+-   Comprova la normalitat dels residus de l'anova
+```{r}
+shapiro.test(an1$residuals)
+```
+
+<br>
+
+3r.   Només quan l'ANOVA surt significativa (almenys un dels grups és diferent de la resta), aplicarem **proves de comparació múltiples** per conèixer quin/quins grup/s difereixen entre si.
+
+
+-   Realitza proves de comparació múltiple (prova *post-hoc*) per veure quin (o quins) dels grups difereix de la resta. Descriu els resultats i digues quin ajust del p-valor s'ha fet.
+
+```{r}
+pairwise.t.test(df0$Gen_32, df0$Tractament)
+```
+
+-   Ara realitza de nou múltiples T-test (pairwise.t.test) canviant l'ajust del p-valor. Comenta els resultats.
+
+-   Fes una altra prova *post-hoc* amb el test de Tukey (`TukeyHSD()`). Comenta els resultats.
+
+```{r}
+TukeyHSD(an1)
+```
+
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Escriu les conclusions de l'anàlisi: interpreta el resultat del test estadístic i relaciona-ho amb la pregunta de recerca. Ajuda't del gràfic de caixes del Gen 32 en els tres grups per la interpretació.
+</p>
+</div>
+
+

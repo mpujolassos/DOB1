@@ -1,0 +1,17 @@
+# Pràctica 1.   Introducció pràctica a les eines i bases de dades bioinformàtiques
+
+## Objectius
+
+-   Identificar i explorar bases de dades biològiques que proporcionen informació sobre gens, proteïnes i trets o malalties genètiques associades
+
+-   Aprendre a utilitzar eines bioinformàtiques bàsiques per a la consulta i l’anàlisi de dades genètiques
+
+-   Aplicar els coneixements al cas concret del gust amarg, analitzant un gen d'interès (com el TAS2R38, quan s’especifica en contextos relacionats)
+
+
+## Descripció de la pràctica
+
+La primera pràctica correspon a una de les activitat de divulgació incloses dins del programa [*Desxifrant Enigma*](https://mon.uvic.cat/bioinformatica-educativa/desxifrant-enigma/), impulsat pel grup de Recerca Bi-squared (UVic - UCC), que té com a objectiu impulsar la Bioinformàtica. 
+
+Concretament, seguirem l'activitat anomenada ["El Gust per la Bioinformàtica"](https://mon.uvic.cat/bioinformatica-educativa/el-gust-amarg-de-la-bioinformatica/).
+
