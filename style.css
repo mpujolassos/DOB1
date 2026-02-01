@@ -340,3 +340,26 @@ img, .figure img {
 .task-inline a:hover, .task-box a:hover, .task-list a:hover {
   text-decoration: underline;
 }
+
+/* 4) Bloc de Pregunta de Recerca */
+.research-question-box {
+  border-left: 6px solid #8B0A1F;   /* vermell més fosc i fi */
+  background: #FFF9FA;              /* encara més clar */
+  padding: 0.85rem 1rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.research-question-box .rq-title {
+  margin: 0 0 0.4rem 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #8B0A1F;
+}
+
+.research-question-box p {
+  margin: 0;
+  font-style: italic;
+  color: #2B2B2B;
+}
