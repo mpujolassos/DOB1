@@ -284,7 +284,7 @@ III) Identificar que les dades són *independents*: en aquest cas, els individus
 
 <br>
 
-2n.   Si es compleixen els tres supòsits es pot aplicar l'**ANOVA**:
+**2n.**   Si es compleixen els tres supòsits es pot aplicar l'**ANOVA**:
 ```{r}
 # test anova
 an1 <- aov(df0$Gen_32 ~ df0$Tractament)
@@ -310,7 +310,7 @@ shapiro.test(an1$residuals)
 
 <br>
 
-3r.   Només quan l'ANOVA surt significativa (almenys un dels grups és diferent de la resta), aplicarem **proves de comparació múltiples** per conèixer quin/quins grup/s difereixen entre si.
+**3r.**   Només quan l'ANOVA surt significativa (almenys un dels grups és diferent de la resta), aplicarem **proves de comparació múltiples** per conèixer quin/quins grup/s difereixen entre si.
 
 
 -   Realitza proves de comparació múltiple (prova *post-hoc*) per veure quin (o quins) dels grups difereix de la resta. Descriu els resultats i digues quin ajust del p-valor s'ha fet.

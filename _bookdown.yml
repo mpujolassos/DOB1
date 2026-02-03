@@ -4,18 +4,3 @@ language:
   ui:
     chapter_name: "Pràctica "
 delete_merged_file: true
-
-
-rmd_files:
-  - index.Rmd
-  - 01-pract1-taller_gust.Rmd
-  - 02-pract2-dades.Rmd
-  - 03-pract3-anovaI.Rmd
-  - 04-pract4-anovaII.Rmd
-  - 05-pract5-noparamI.Rmd
-  - 06-pract6-noparamII.Rmd
-  - 07-pract7-reglinealI.Rmd
-  - 08-pract8-reglinealII.Rmd
-  - 09-pract9-reglogisticaI.Rmd
-  - 10-pract10-reglogisticaII.Rmd
-  - 11-pract11-visualitzacio.Rmd

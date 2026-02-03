@@ -1,0 +1,653 @@
+# Pràctica 4.   Testos d'igualtat de mitjanes per més de dues poblacions: ANOVA de dos factors i ANOVA per mesures repetides
+
+## Objectius de la pràctica
+
+Els objectius principals de la pràctica són:
+
+-   Manipulació de data.frames (filtrar files segons diferents criteris)
+
+-   Aplicar testos de comparació de mitjanes per més de dues poblacions (ANOVA) en funció de dos factors
+    
+-   Anàlisi de l'expressió longitudinal d'un gen en més de dos temps
+
+-   Comprovar els supòsits de normalitat i homocedasticitat
+
+-   Compendre les hipòtesis estadístiques associades a aquests testos i prendre decisions a partir dels seus resultats
+    
+-   Visualitzar de manera adequada dades en contextos de dissenys longitudinals
+    
+-   Relacionar les hipòtesis científiques plantejades inicialment amb els resultats estadístics
+
+<br>
+
+## 1. Importar dades a R
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou RMarkdown anomenat "Practica4" i guarda'l a la carpeta de Pràctiques. 
+</p>
+</div>
+
+-   Crea un nou *chunk* que inclogui les diferents llibreries que
+    utilitzarem durant la pràctica:
+
+```{r message=FALSE, warning=FALSE}
+library(ggpubr)
+library(car)
+```
+
+-   En un altre *chunk* defineix el teu directori de treball i carrega
+    les dades (metadades: *practR_metadades.csv* i abundàncies de gens (filtrat): *practR_rnadata_filt.csv*)
+
+```{r eval=FALSE, include=TRUE}
+setwd("path/to/your/folder/with/data")
+```
+
+```{r}
+# carregar dades
+metadata <- read.csv2("dades/practR_metadades.csv", dec = ",", row.names = 1)
+data <- read.csv2("dades/practR_rnadata_filt.csv", dec = ",", row.names = 1)
+```
+
+-   Combina en un sol data.frame les dues matrius de dades (anomena'l `df`):
+
+```{r include=FALSE}
+# combinem els dos datasets en un de sol
+df <- cbind(metadata, data)
+```
+
+-   Fes les transformacions necessàries:
+
+```{r include=FALSE}
+# transformem a factor
+df$Individu <- factor(df$Individu)
+df$Temps <- factor(df$Temps, levels = c(0, 1, 4, 24), labels = c("basal", "1set", "4set", "24set"))
+df$Sexe <- factor(df$Sexe)
+df$Tractament <- factor(df$Tractament)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Guarda el data.frame `df` a la carpeta de dades amb el nom de
+    *"practR_dades.csv"* (busca a les pràctiques anteriors com **exportar**
+    fitxers de R a l'ordinador). D'aquesta manera només caldrà carregar
+    un sol fitxer per les properes pràctiques. 
+</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+write.csv2(df, "practR_dades.csv", row.names = T)
+```
+
+<br>
+
+## 2. Comparació de l'expressió gènica en funció de dos factors
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    L'expressió del gen 38 es pot veure afectada per la pròpia resposta al tractament (es curen/no es curen) i/o el sexe (home/dona) dels pacients?
+  </p>
+</div>
+
+Per poder resoldre la pregunta de recerca, caldrà comprovar si hi ha diferències significatives en l'expressió del Gen 38 entre les dues poblacions de **Curats** vs **No Curats** a **temps basal**, tenint en compte el seu **sexe**.
+
+### 2.1. Selecció de mostres per l'anàlisi
+
+-   Crea un nou data.frame (`df0`) només amb mostres d'expressió dels
+    gens a temps basal.
+
+```{r}
+df0 <- df[which(df$Temps == "basal"),]
+```
+
+-   Ara crea un altre data.frame (`df1`), a partir de `df0` que inclogui
+    només mostres de pacients amb TB curats i no curats.
+
+```{r}
+ind_0_c_nc <- which(df0$Tractament == "curat" | df0$Tractament == "no curat" )
+df1 <- df0[ind_0_c_nc,]
+```
+
+-   Re-defineix el factor `Tractament` i `Individu` (ho fem perquè
+    sàpiga que ara ja no tenim 3 categories de Tractament, sinó que n'hi
+    ha dues: curat i no curat. Igualment pel factor Individu)
+
+```{r}
+df1$Tractament <- factor(df1$Tractament)
+df1$Individu <- factor(df1$Individu)
+```
+
+    
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Abans de continuar, observa les dades i comprova que has seleccionat
+    les mostres desitjades.
+</p>
+</div>
+
+<br>
+
+### 2.2. Efecte de la resposta al tractament i del sexe sobre l'expressió gènica
+
+Es vol determinar si l'expressió basal (abans de començar el tractament)
+del gen 38 es veu efectat pel fet de que el pacient amb TB sigui home o
+dona, i/o la seva reacció al tractament (si s'acaba curant o no).
+
+#### Exploració de les dades
+
+-   Fes un resum (gràfic i numèric) de l'expressió del gen 38 en funció
+    de la resposta al tractament
+
+```{r}
+# Resum numèric (ex: mitjana de cada grup):
+tapply(df1$Gen_38, df1$Tractament, mean)
+
+# gràfic
+ggboxplot(data = df1, x = "Tractament", y = "Gen_38",
+       add = "jitter") # fixa't que aquest argument afegeix al gràfic cada una de les mostres (punts)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Fes un resum (gràfic i numèric) de l'expressió del gel 38 en funció
+    del sexe
+</p>
+</div>
+
+-   Fes un resum (gràfic i numèric) de l'expressió del gel 38 en funció
+    del sexe i de la resposta al tractament
+
+```{r}
+# Resum numèric (ex: mitjana de cada grup):
+tapply(df1$Gen_38, list(df1$Tractament,df1$Sexe), mean)
+
+# Gràfic
+ggboxplot(data = df1, x = "Tractament", y = "Gen_38",
+          color = "Sexe",
+       add = "jitter")
+```
+
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els gràfics i explica quin resultat esperaries.
+</p>
+</div>
+
+#### Anàlisi estadística
+
+Per analitzar l'efecte de dos factors (*e.g.*, resposta al tractament i
+sexe) sobre una variable numèrica (*e.g.*, expressió del gen 38) s'ha de
+realitzar una **ANOVA de dos factors**.
+
+Les hipòtesis de l'ANOVA de dos factors són:
+
+1.  Pel que fa a la resposta al tractament (1r factor):
+
+$$H_0: \mu_{curat} = \mu_{no.curat}$$
+$$H_a: \mu_{curat} \neq \mu_{no.curat}$$
+
+        
+2.  Pel que fa al sexe (2n factor):
+
+
+$$H_0: \mu_{homes} = \mu_{dones}$$
+$$H_a: \mu_{homes} \neq \mu_{dones}$$
+
+        
+3. Pel que fa a la interacció entre la resposta i el sexe:
+
+
+$$H_0: \text{no hi ha interacció entre el fet de curar-se (o no) i el sexe}$$
+$$H_a: \text{hi ha interacció entre el fet de curar-se (o no) i el sexe}$$
+
+
+<br>
+
+**1r.**   Abans d'aplicar l'ANOVA cal **comprovar els supòsits**: 
+
+I)    Comprovar que totes mostres provenen de poblacions amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+-   Comprova la normalitat dins de cada grup (*e.g.*, no curat-dona; no
+    curat-home; curat-dona; curat-home).
+
+```{r}
+# shapiro test
+shaptest <- tapply(df1$Gen_38, list(df1$Tractament,df1$Sexe), shapiro.test)
+shaptest
+# Accedim als resultats del test dins de cada grup
+shaptest[1,1]  # curat - F
+shaptest[1,2]  # curat - M
+shaptest[2,1]  # no curat - F
+shaptest[2,2]  # no curat - M
+```
+
+-   Visualitza amb un QQ plot la normalitat de les dades (fes-ho amb la
+    funció `ggqqplot()`). Les dades (de cada grup) s'ajusten a la línia?
+
+```{r}
+ggqqplot(df1, x = "Gen_38", 
+         facet.by = c("Tractament","Sexe"),
+         short.panel.labs = TRUE)
+```
+
+
+<br>
+
+II)   Conèixer si les variàncies dels grups segueixen l'*homocedasticitat* (es comprova mitjançant el test de Levene: `leveneTest()`). Per aplicar la funció `leveneTest()` hauràs de carregar la llibreria `car` (ho hauries d'haver fet al principi, al primer *chunk*).
+
+-   Comprova l'homocedasticitat amb la funció `leveneTest()`
+
+```{r message=FALSE, warning=FALSE}
+leveneTest(df1$Gen_38 ~ df1$Tractament*df1$Sexe)
+```
+
+
+III) Identificar que les dades són *independents*
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat dels tests estadístics referents als supòsits i escriu un resum/conclusions pel que fa als supòsits de normalitat, homocedasticitat i independència de les dades. 
+</p>
+</div>
+
+<br>
+
+**2n.**   Si es compleixen els tres supòsits es pot aplicar l'**ANOVA**:
+
+-   Realitza l'anova de dos factors. Fixa't en les diferències respecte l'anova d'un sol factor (Pràctica 3).
+
+```{r}
+# test anova
+an1 <- aov(df1$Gen_38 ~ df1$Tractament * df1$Sexe)
+
+# resultats de l'anova
+summary(an1)
+```
+
+-   Comprova la normalitat dels residus de l'anova
+
+```{r}
+shapiro.test(an1$residuals)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic i escriu una petita conclusió referent a la pregunta de recerca.
+</p>
+</div>
+
+<br>
+
+## 3. Comparació de l'expressió al llarg del temps
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    L'expressió del gen 38 dels individus que s'acaben curant varia al llarg del temps?
+  </p>
+</div>
+
+En aquest cas ens centrarem en l'expressió del **gen 38** al llarg del **temps** dels
+individus que s'acaben **curant**.
+
+Per realitzar aquest anàlisi hem de tenir en compte que estem davant
+d'un disseny experimental de **mesures repetides** (o disseny longitudinal).
+Això implica que les dades dels diferents grups (Temps) no són
+completament independents, de fet, l'expressió del gen en temps
+posteriors en un individu dependrà segurament de l'expressió en temps
+anteriors d'aquest mateix individu.
+
+### 3.1. Selecció de mostres per l'anàlisi
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou data.frame (`df2`) que contingui totes les mostres a
+    diferent temps només dels individus curats. Comprova que `df2` inclogui
+    les mostres desitjades.
+</p>
+</div>
+
+```{r include=FALSE}
+ind_c <- which(df$Tractament == "curat")
+df2 <- df[ind_c,]
+```
+
+-   Re-defineix el factor `Tractament` i `Individu` (ho fem perquè
+    sàpiga que ara ja no tenim 3 categories de Tractament, sinó que n'hi
+    ha només una, curat. Fem el mateix pel factor Individu)
+
+```{r}
+df2$Tractament <- factor(df2$Tractament)
+df2$Individu <- factor(df2$Individu)
+```
+
+### 3.2. Expressió del gen 38 al llarg del temps
+
+#### Exploració de les dades
+
+-   Representa gràficament l'expressió del gen 38 al llarg del temps
+    dels pacients que s'acaben curant. Com es diu aquest gràfic?
+
+```{r}
+ggline(data = df2, x = "Temps", y = "Gen_38",
+       color = "Individu")
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Descriu el gràfic anterior i digues quins poden ser els resultats
+    esperats</p>
+</div>
+
+<br>
+
+#### Anàlisi estadística
+
+En aquest cas, al tractar-se de mesures repetides s'haurà d'aplicar un
+**ANOVA per disseny de mesures repetides**.
+
+Les hipòtesis de l'ANOVA per mesures repetides:
+
+$$\small{H_0: \text{les mitjanes poblacionals d'expressió del gen son iguals en tots els temps}}$$
+$$\small{H_a: \text{les mitjanes poblacionals d'expressió del gen són diferent en almenys un dels temps mesurats}}$$
+
+<br>
+
+**1r.**   Abans d'aplicar l'ANOVA cal **comprovar els supòsits**: 
+
+I)    Comprovar que totes mostres/gurps provenen de poblacions amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+-   Abans però, digues quantes dades hi ha dins de
+    cada grup (per `$Temps` i `$Individu`)?
+
+```{r}
+table(df2$Temps, df2$Individu)
+```
+
+-   Com has pogut comprovar, en aquest cas hi ha una sola mostra dins de
+    cada "grup", per tant, comprovar la normalitat d'una sola mostra no
+    té sentit. La normalitat es comprovarà posteriorment a partir dels
+    residus de l'anova. Prova de fer córrer la següent línia (per
+    compilar l'Rmarkdown no la podràs incloure):
+
+```         
+tapply(df2$Gen_38, list(df2$Temps,df2$Individu) , shapiro.test)
+```
+
+II)   Conèixer si les variàncies dels grups segueixen l'*homocedasticitat*
+
+-   Amb l'homocedastisitat passa el mateix. No podem avaluar
+    l'homocedasticitat d'una sola mostra mitjançant el test de Levene.
+    En aquest cas hi ha l'alternativa d'aplicar el test de Mauchly's
+    Sphericity, però no ho farem. Prova de fer córrer la següent línia
+    (per compilar l'Rmarkdown no la podràs incloure):
+
+```         
+leveneTest(df2$Gen_38~df2$Time*df2$Individu)
+```
+
+III) En aquest cas, les mostres no són *independents*
+
+<br>
+
+**2n.**   Es pot aplicar l'**ANOVA** per mesures repetides en aquest cas:
+
+-   Realitza l'ANOVA per mesures repetides
+
+```{r}
+# test anova
+an2 <- aov(df2$Gen_38 ~ df2$Temps + df2$Individu)
+
+# resultats de l'anova
+summary(an2)
+```
+
+-   Ara pots comprovar la normalitat dels residus de l'anova
+
+```{r}
+shapiro.test(an2$residuals)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat dels tests estadístics referents als supòsits i escriu un resum/conclusions pel que fa als supòsits de normalitat i independència de les dades. 
+</p>
+</div>
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat de l'ANOVA per mesures repetides i relaciona-ho amb la pregunta de recerca. 
+</p>
+</div>
+
+<br>
+
+
+**3r.**   Només quan l'ANOVA surt significativa (almenys un dels grups és diferent de la resta), aplicarem **proves de comparació múltiples** per conèixer quin/quins grup/s difereixen entre si.
+
+
+-   Realitza la prova de Tukey per veure quin (o quins) temps difereix
+    de la resta. En quins p-valors ens hem de fixar? 
+
+```         
+TukeyHSD(an2)
+```
+
+```{r echo=FALSE}
+resT <- TukeyHSD(an2)
+resT[["df2$Temps"]]
+head(resT[["df2$Individu"]])
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic i relaciona-ho amb la pregunta de recerca. Ajuda't del line plot creat a l'apartat d'exploració de les dades.
+</p>
+</div>
+
+<br>
+
+
+## 4. Comparació de l'expressió al llarg del temps i en funció d'un factor
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    Els pacients que es curen i els que no es curen tenen el mateix perfil d'expressió d'aquest gen al llarg del temps?
+  </p>
+</div>
+
+
+### 4.1. Selecció de mostres per l'anàlisi
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou data.frame, `df3` que contingui les observacions a tots els temps dels individus curats i els no curats. Comprova que `df3` inclogui les mostres desitjades.
+</p>
+</div>
+
+
+```{r include=FALSE}
+ind_c_nc <- which(df$Tractament == "curat" | df$Tractament == "no curat" )
+df3 <- df[ind_c_nc,]
+```
+
+-   Re-defineix el factor `Tractament` i `Individu` (ho fem perquè
+    sàpiga que ara ja no tenim 3 categories de Tractament, sinó que n'hi
+    ha dues: curat i no curat. Igualment pel factor Individu)
+
+```{r}
+df3$Tractament <- factor(df3$Tractament)
+df3$Individu <- factor(df3$Individu)
+```
+
+### 4.2. Expressió del gen 38 al llarg del temps en curats i no curats
+
+#### Exploració de les dades
+
+-   Representa gràficament l'expressió del gen 38 al llarg del temps
+    distingint els pacients que s'acaben curant dels que no. Hi ha
+    diferents opcions per representar aquestes dades, una és aquesta:
+
+```{r}
+ggline(data = df3, x = "Temps", y = "Gen_38", 
+       color = "Tractament",
+       add = c("mean_se", "jitter"),
+       size = .75,
+       palette = c("violetred4", "orange"))
+```
+
+-   Calcula la mitjana de l'expressió dins de cada grup:
+
+```{r}
+tapply(df3$Gen_38, list(df3$Temps,df3$Tractament), mean)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Descriu el gràfic anterior i digues si esperes veure diferències al
+    llarg del temps entre els dos grups de pacients.
+</p>
+</div>
+
+<br>
+
+#### Anàlisi estadística
+
+Aques últim cas és un exemple de mesures repetides on, a més, es vol
+veure l'efecte d'un segon factor (*i.e.*, resposta al tractament). Per
+tant, s'haurà d'aplicar una **ANOVA de dos factors per disseny de mesures repetides**.
+
+Similar a l'ANOVA de fos factors, en el cas de mesures repetides un dels
+factors és el temps. Les hipòtesis del test són:
+
+      
+  1.    Pel que fa al temps:
+
+
+$$\small{H_0: \text{les mitjanes poblacionals d'expressió del gen son constants al llarg del temps}}$$
+$$\small{ H_a: \text{les mitjanes poblacionals d'expressió canvien en almenys un dels temps mostrejats}}$$
+
+         
+  2.    Pel que fa a la resposta al tractament:
+
+
+$$\small{ H_0: \text{les mitjanes poblacionals d'expressió del gen son iguals en pacients curats i no curats}}$$
+$$\small{ H_a: \text{les mitjanes poblacionals d'expressió en pacients curats i no curats són diferents}}$$
+
+         
+  3. Pel que fa a la interacció entre la resposta i el temps:
+
+
+$$\small{ H_0: \text{no hi ha interacció entre el fet de curar-se (o no) i el temps}}$$
+$$\small{H_a: \text{el temps té un efecte sobre la resposta al tractament}}$$
+
+<br>
+
+**1r.**   Abans d'aplicar l'ANOVA cal **comprovar els supòsits**: 
+
+I)    Comprovar que totes mostres/gurps provenen de poblacions amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+
+-   Abans de comprovar els supòsits, digues quantes dades hi ha dins de
+    cada grup (per `$Temps` i `$Tractament`)?
+
+```{r}
+table(df3$Temps, df3$Tractament)
+```
+
+-   Comprova la normalitat amb un test de shapiro per cada grup
+    analitzat.
+
+```{r}
+# shapiro test dins de cada grup
+shaptest2 <- tapply(df3$Gen_38, list(df3$Temps,df3$Tractament) , shapiro.test)
+shaptest2
+# extreiem els resultats del test de cada grup
+shaptest2[1,1]  # basal - curat
+shaptest2[1,2]  # basal - no curat
+shaptest2[2,1]  # 1 set - curat
+shaptest2[2,2]  # 1 set - no curat
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Mostra la resta de resultats del test de shapiro (4set - curat;
+    4set - no curat; 24set - curat; 4set - no curat)
+</p>
+</div>
+
+-   Visualitza amb un QQ plot la normalitat de les dades (fes-ho amb la
+    funció `ggqqplot()`). Comenta els resultats del test i del QQ-plot.
+
+```{r}
+ggqqplot(df3, x = "Gen_38", 
+         facet.by = c("Temps","Tractament"),
+         short.panel.labs = TRUE)
+```
+
+II)   Conèixer si les variàncies dels grups segueixen l'*homocedasticitat*
+
+-   Comprova ara la homogeneïtat de variàncies entre tots els grups.
+    Comenta els resultats.
+
+```{r message=FALSE, warning=FALSE}
+leveneTest(df3$Gen_38~df3$Temps*df3$Tractament)
+```
+
+III) En aquest cas, les mostres no són *independents*
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat dels tests estadístics referents als supòsits i escriu un resum/conclusions pel que fa als supòsits de normalitat, homocedasticitat i independència de les dades. 
+</p>
+</div>
+
+<br>
+
+**2n.**   Si es compleixen els supòsits es pot aplicar l'**ANOVA**:
+
+-   Realitza l'ANOVA de dos factors per mesures repetides (fixa't en la sintaxi del codi)
+
+```{r}
+# test anova
+an3 <- aov(df3$Gen_38 ~ df3$Temps * df3$Tractament)
+
+# resultats de l'anova
+summary(an3)
+```
+
+-   Ara pots comprovar la normalitat dels residus de l'ANOVA. Podriem
+    acabar acceptant els resultats d'aquesta ANOVA?
+
+```{r}
+shapiro.test(an3$residuals)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic i relaciona-ho amb la pregunta de recerca. 
+</p>
+</div>
+
+<br>
+
+**3r.**   Només quan l'ANOVA surt significativa (almenys un dels grups és diferent de la resta), aplicarem **proves de comparació múltiples** per conèixer quin/quins grup/s difereixen entre si.
+
+-   Realitza la prova de Tukey per veure quin (o quins) dels grups
+    difereix de la resta. En quins p-valors ens hem de fixar?
+
+```{r}
+TukeyHSD(an3)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els resultats i relaciona-ho amb les hipòtesis
+    plantejades a l'inici. Fixa't sobretot en les interaccions no
+    significatives (p\>0.05) i ajuda't del line plot, tenen sentit
+    aquests resultats?
+</p>
+</div>

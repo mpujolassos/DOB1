@@ -1,0 +1,412 @@
+# Pràctica 5.   Estadística no paramètrica (I): Test de Wilcoxon
+
+## Objectius de la pràctica
+
+Els objectius principals de la pràctica són:
+
+-   Manipulació de data.frames (filtrar files segons diferents criteris)
+-   Identificar el test estadístic més apropiat en cada cas
+-   Treballar amb estadística no paramètrica
+-   Crear visualitzacions adequades per presentar els resultats
+-   Interpretar correctament els resultats (outputs) dels diferents testos
+-   Relacionar les hipòtesis estadístiques amb les hipòtesis científiques
+
+<br>
+
+## 1. Importar dades a R
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou RMarkdown anomenat "Practica5" i guarda'l a la carpeta de Pràctiques. 
+</p>
+</div>
+
+-   Crea un nou *chunk* que inclogui les diferents llibreries que
+    utilitzarem durant la pràctica:
+
+```{r message=FALSE, warning=FALSE}
+library(ggpubr)
+library(car)
+```
+
+-   En un altre *chunk* defineix el teu directori de treball
+
+```{r eval=FALSE, include=TRUE}
+setwd("path/to/your/folder/with/data")
+```
+
+-   Carrega les dades del fitxer (*practR_dades.csv*) 
+
+```{r}
+# carregar dades
+df <- read.csv2("dades/practR_dades.csv", dec = ",", row.names = 1)
+```
+
+-   Fes les transformacions necessàries
+
+```{r include=FALSE}
+# transformem a factor
+df$Individu <- factor(df$Individu)
+df$Temps <- factor(df$Temps, levels = c(0, 1, 4, 24), labels = c("basal", "1set", "4set", "24set"))
+df$Sexe <- factor(df$Sexe)
+df$Tractament <- factor(df$Tractament)
+```
+
+<br>
+
+## 2. Comparació de l'expressió respecte un valor de referència
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    L'expressió del gen 43 al cap de 4 setmanes de tractament dels individus que s'acaben curant coincideix amb el valor d'expressió de referència en la població?
+  </p>
+</div>
+
+Per aquesta pràctica ens centrarem en l'expressió del **Gen 43**. Concretament estudiarem la seva expressió al cap de **4 setmanes** d'haver administrat el medicament en **pacients que s'acaben curant**.
+
+### 2.1. Selecció de mostres per l'anàlisi
+
+-   Crea un nou data.frame (`df4_c`) amb mostres d'expressió dels
+    gens al cap de 4 setmanes només de pacients curats.
+
+```{r echo=TRUE}
+ind_4_c <- which(df$Temps == "4set" & df$Tractament == "curat")
+df4_c <- df[ind_4_c,]
+```
+
+-   Quina diferència creus que hi ha entre `|` i `&`?
+
+-   Re-defineix el factor `Tractament`, `Individu` i `Temps`
+
+```{r}
+df4_c$Tractament <- factor(df4_c$Tractament)
+df4_c$Temps <- factor(df4_c$Temps)
+df4_c$Individu <- factor(df4_c$Individu)
+```
+
+-   Abans de continuar, observa les dades i comprova que has seleccionat
+    les mostres desitjades.
+```{r}
+table(df4_c$Tractament, df4_c$Temps)
+```
+    
+
+### 2.2. Anàlisi de l'expressió del gen 43 respecte el valor de referència
+
+Es coneix que l'expressió en condicions normals del gen 43 és de 10 aproximadament. Els investigadors es pregunten si el tractament és capaç de "re-establir" l'expressió d'aquest gen en persones infectades de tuberculosis al cap de 4 setmanes de subministrar-lo?
+
+
+#### Exploració de les dades
+
+-   Visualitza l'expressió del gen 43 en pacients amb tuberculosi (només aquells que s'acaben curant). Com que en aquest cas volem visualitzar una sola variable (numèrica) és millor optar per un histograma:
+
+```{r}
+gghistogram(data = df4_c, x = "Gen_43",
+            add = c("mean"))
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Repeteix l'histograma però en lloc de mostrar la mitjana mostra la mediana.
+</p>
+</div>
+    
+```{r eval=FALSE, include=FALSE}
+gghistogram(data = df4_c, x = "Gen_43",
+            add = "median")
+```
+
+-   Reporta numèricament els valors de la mediana i la mitjana del gen 43 d'aquest grup de pacients
+
+```{r}
+mean(df4_c$Gen_43)
+median(df4_c$Gen_43)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Els valors de la mediana i de la mitjana són bastant diferents, per què creus que la mitjana és més gran que la mediana?
+</p>
+</div>
+
+
+<br>
+
+#### Anàlisi estadística
+
+Per respondre a la pregunta anterior *"Al cap de 4 setmanes, el tractament és capaç de retornar l'expressió del gen 43 en persones infectades de tuberculosis a nivells normals?"*, haurem de comparar els valors de l'expressió del gen amb l'expressió habitual de 10. 
+
+En aquest cas haurem de comparar la mitjana/mediana d'una mostra respecte un valor concret.
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Quins tests coneixes per comparar la mitjana/mediana d'una mostra respecte un valor concret?</p>
+
+  <p>Quina és la principal diferència entre ells? Quan apliquem un i quan l'altre?</p>
+</div>
+
+<br>
+
+**1r.**   Abans d'aplicar el test cal **comprovar els supòsits**: 
+
+
+I)    Cal comprovar que la mostra prové d'una població amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+-   Aplica el test de Shapiro:
+
+
+```{r}
+shapiro.test(df4_c$Gen_43)
+```
+
+-   Visualitza amb un QQ plot la normalitat de les dades (fes-ho amb la
+    funció `ggqqplot()`). El gràfic concorda amb el resultat del test?
+
+```{r}
+ggqqplot(df4_c, x = "Gen_38")
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta el resultat del test estadístic (tingues en compte les hipòtesis estadístiques del test) 
+</p>
+</div>
+
+<br>
+
+**2n.**   Efectivament, les dades no segueixen una distribució normal. Per tant, optem per un test no paramètric: **Test de wilcoxon d'una sola mostra**
+
+-   Planteja les hipòtesis (nul·la i alternativa) del test estadístic en el cas que volguéssim comprovar si els valors dels pacients curats són diferents a 10
+
+-   Realitza el test i interpreta els resultats
+
+```{r}
+wilcox.test(df4_c$Gen_43, mu = 10)
+```
+
+
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Ara planteja les hipòtesis (nul·la i alternativa) del test estadístic en el cas que volguéssim comprovar si els valors dels pacients curats són més alts de 10.</p>
+
+  <p>Realitza aquest segon test.</p>
+  
+  <p>Escriu una petita conclusió dels resultats obtinguts en aquest apartat.</p>
+    
+</div>
+
+
+```{r eval=FALSE, include=FALSE}
+wilcox.test(df4_c$Gen_43, mu = 10, alternative = "g")
+```
+
+
+<br>
+
+## 3. Comparació de l'expressió gènica entre dues poblacions (dades no-normals)
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    Hem vist que aquests pacients curats tenen una expressió més gran de l'habitual (10). Però realment la seva expressió és diferent a la dels controls? 
+  </p>
+</div>
+
+Per respondre a aquesta pregunta haurem de comparar l'expressió del gen entre controls i curats (sempre a 4 setmanes des de l'inici del tractament)
+
+
+### 3.1. Selecció de mostres per l'anàlisi
+
+-   Crea un nou data.frame, `df4_cc` que contingui mostres a temps 4 setmanes de pacients curats i de controls. A continuació hi ha un exemple de codi que pots utilitzar per crear aquest nou data.frame, però també podries fer-ho com ho hem estat fet fins ara. 
+
+```{r echo=TRUE}
+ind_4_cc <- which(df$Temps == "4set" & (df$Tractament == "control" | df$Tractament == "curat"))
+df4_cc <- df[ind_4_cc,]
+```
+
+-   Re-defineix el factor `Tractament`, `Individu` i `Temps`
+
+```{r}
+df4_cc$Tractament <- factor(df4_cc$Tractament)
+df4_cc$Individu <- factor(df4_cc$Individu)
+df4_cc$Temps <- factor(df4_cc$Temps)
+```
+
+### 3.2. Anàlisi de l'expressió del gen 43 entre controls i curats al cap de 4 setmanes
+
+#### Exploració de les dades
+
+-   Fes un gràfic de l'expressió del gen 43 en controls i curats
+
+```{r}
+ggboxplot(data = df4_cc, x = "Tractament", y = "Gen_43")
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Descriu el gràfic anterior i digues quins poden ser els resultats
+    esperats
+</p>
+</div>
+
+<br>
+
+#### Anàlisi estadística
+
+Per tal de respondre a la pregunta de *"l'expressió dels pacients curats és diferent a la dels controls d'aquest estudi?"* caldrà aplicar un test que compari les mitjanes entre aquestes dues poblacions.
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Es tracta d'un experiment amb dades independents o dependents entre els grups estudiats?</p>
+  <p>Quins tests coneixes per comparar la mitjana/mediana entre dues mostres?</p>
+
+  <p>Quina és la principal diferència entre ells? Quan apliquem un i quan l'altre?</p>
+</div>
+
+
+
+<br>
+
+**1r.**   Abans d'aplicar el test cal **comprovar els supòsits**: 
+
+
+I)    Cal comprovar que la mostra prové d'una població amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Aplica el test de Shapiro per cada mostra i visualitza la normalitat de cada mostra amb un qqplot.</p>
+  <p>Comenta els resultats del test i elabora una conclusió referent a la distribució de les dades</p>
+</div>
+
+<br>
+
+**2n.**   Efectivament, les dades no segueixen una distribució normal. Per tant, optem per un test no paramètric: **Test de Wilcoxon per dues mostres independents**
+
+-   Planteja les hipòtesis (nul·la i alternativa) del test estadístic en el cas que volguéssim comprovar si els valors dels pacients curats són diferents als controls
+
+-   Realitza el test. En aquest cas ho escribim en forma de funció: `var.dependent ~ var.independent`. Recorda que el símbol `~` significa "en funció de".
+
+```{r}
+wilcox.test(df4_cc$Gen_43 ~ df4_cc$Tractament)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els resultats del test i relaciona-ho amb la pregunta de recerca. Concorda amb la teva intuïció inicial dels resultats?</p>
+</div>
+
+<br>
+
+## 4. Comparació de l'expressió per mostres aparellades (dades no normals)
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    L'expressió del gen 43 augmenta durant la primera setmana, respecte a la seva expressió basal (abans de començar el tractament)? 
+  </p>
+</div>
+
+
+### 4.1. Selecció de mostres per l'anàlisi
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou data.frame, `df_b1_c` que contingui només els pacients **curats** a temps **basal** i a **1 setmana**.</p>
+</div>
+
+```{r include=FALSE}
+ind_b1_c<- which(df$Tractament == "curat" & (df$Temps == "basal" | df$Temps == "1set"))
+df_b1_c <- df[ind_b1_c,]
+```
+
+-   Re-defineix el factor `Tractament`
+
+```{r}
+df_b1_c$Tractament <- factor(df_b1_c$Tractament)
+```
+
+### 4.2. Anàlisi de l'expressió en pacients curats durant la primera setmana
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Representa gràficament l'expressió del gen 43 en els dos temps. Tingues en compte el disseny d'aquest últim anàlisi i, si et fa falta, consulta les pràctiques anteriors per treure el gràfic correcte.</p>
+  
+  <p>Descriu el gràfic i digues si esperes veure diferències entre els dos temps.</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+ggline(data = df_b1_c, x = "Temps", y = "Gen_43", 
+       color = "Individu")
+```
+
+<br>
+
+#### Anàlisi estadística
+
+Per tal de respondre a la pregunta de *"l'expressió del gen 43 dels pacients curats augmenta al cap d'una setmana d'haver començat el tractament, respecte a la seva expressió basal?"* caldrà aplicar un test que compari les mostres a temps basal i al cap d'una setmana.
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Es tracta d'un experiment amb dades independents o dependents entre els grups estudiats?</p>
+  <p>Quins tests coneixes per comparar la mitjana/mediana entre dues mostres aparellades?</p>
+
+  <p>Quina és la principal diferència entre ells? Quan apliquem un i quan l'altre?</p>
+</div>
+
+
+**1r.**   Abans d'aplicar el test cal **comprovar els supòsits**: 
+
+
+I)    Cal comprovar que la mostra prové d'una població amb *distribució normal* (es comprova mitjançant el test de shapiro: `shapiro.test()`).
+
+-   En aquest cas, com que es tracta de dades aparellades haurem de comprovar la normalitat de la diferència entre l'expressió a 1 setmana - l'expressió basal. Per tant, primer calculem la diferència entre els dos temps:
+
+```{r}
+# Extreiem els valors de del Gen 43 d'aquelles mostres amb $Temps == "basal" i $Temps == "1set"
+gen43_basal <- df_b1_c[which(df_b1_c$Temps == "basal"), "Gen_43"] # només aquelles mostres basals
+gen43_1set <- df_b1_c[which(df_b1_c$Temps == "1set"), "Gen_43"]   # només aquelles mostres a 1 setmana
+
+diff <- gen43_1set - gen43_basal  # diferència: final - inicial
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Comprova la normalitat dels valors de la diferència de les expressions entre els dos temps. Comenta el resultat</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+shapiro.test(diff)
+```
+
+
+<br>
+
+**2n.**   Efectivament, les dades no segueixen una distribució normal i es tracta de dades aparellades. Per tant, optem per un test no paramètric: **Test de Wilcoxon per dades aparellades (Wilcoxon Signed Rank Test)**
+
+
+-   Planteja les hipòtesis (nul·la i alternativa) del test estadístic
+
+-   Realitza el test mitjançant `wilcox.test()`. Tingues en compte la pregunta inicial: l'expressió del gen 43 dels pacients curats augmenta al cap d'una setmana d'haver començat el tractament, respecte a la seva expressió basal? Tens dues opcions:
+
+  a) aplicar wilcoxon sobre la diferència (`diff`)
+
+```{r}
+wilcox.test(diff, alternative = "g")
+```
+
+  b) aplicar wilcoxon sobre les dades dels dos temps, i especificar que són dades aparellades(`paired = TRUE`):
+```{r}
+wilcox.test(gen43_1set, gen43_basal, paired = TRUE, alternative = "g")
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Digues què significa `alternative = "g"`. Perquè cal definir-ho en aquest cas?</p>
+  <p>Interpreta els resultats i relaciona-ho amb la pregunta de recerca. Concorda amb la teva intuïció inicial dels resultats?</p>
+</div>
+
+<br>
