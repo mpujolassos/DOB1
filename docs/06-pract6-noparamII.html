@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc | Pràctiques per l’anàlisi de dades òmiques amb R</title>
   <meta name="description" content="Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc | Pràctiques per l’anàlisi de dades òmiques amb R" />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc | Pràctiques per l’anàlisi de dades òmiques amb R" />
   <meta property="og:type" content="book" />
@@ -217,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#selecció-de-mostres-per-lanàlisi-4"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#anàlisi-de-lexpressió-del-gen-43-entre-controls-i-curats-al-cap-de-4-setmanes"><i class="fa fa-check"></i>3.2. Anàlisi de l’expressió del gen 43 entre controls i curats al cap de 4 setmanes</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#comparació-de-lexpressió-per-mostres-aparellades-dades-no-normals"><i class="fa fa-check"></i>4. Comparació de l’expressió per mostres aparellades (dades no normals)</a>
+<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#comparació-de-lexpressió-en-mostres-aparellades-dades-no-normals"><i class="fa fa-check"></i>4. Comparació de l’expressió en mostres aparellades (dades no normals)</a>
 <ul>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#selecció-de-mostres-per-lanàlisi-5"><i class="fa fa-check"></i>4.1. Selecció de mostres per l’anàlisi</a></li>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#anàlisi-de-lexpressió-en-pacients-curats-durant-la-primera-setmana"><i class="fa fa-check"></i>4.2. Anàlisi de l’expressió en pacients curats durant la primera setmana</a></li>
@@ -225,33 +225,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html"><i class="fa fa-check"></i>Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc</a>
 <ul>
-<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#objectius-2"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#descripció-de-la-pràctica-1"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#objectius-de-la-pràctica-3"><i class="fa fa-check"></i>Objectius de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#importar-dades-a-r-4"><i class="fa fa-check"></i>1. Importar dades a R</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-entre-més-de-dues-mostres"><i class="fa fa-check"></i>2. Comparació de l’expressió gènica entre més de dues mostres</a>
+<ul>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-6"><i class="fa fa-check"></i>2.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-entre-curats-no-curats-i-controls"><i class="fa fa-check"></i>2.2. Anàlisi de l’expressió entre curats, no curats i controls</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-al-llarg-del-temps"><i class="fa fa-check"></i>3. Comparació de l’expressió gènica al llarg del temps</a>
+<ul>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-7"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-gènica-en-individus-curats-al-llarg-del-temps"><i class="fa fa-check"></i>3.2. Anàlisi de l’expressió gènica en individus curats al llarg del temps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html"><i class="fa fa-check"></i>Pràctica 7. Models de Regressió lineal (I)</a>
 <ul>
-<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#objectius-3"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#descripció-de-la-pràctica-2"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#objectius-de-la-pràctica-4"><i class="fa fa-check"></i>Objectius de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#importar-dades-a-r-5"><i class="fa fa-check"></i>1. Importar dades a R</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-simple"><i class="fa fa-check"></i>2. Model de regressió lineal simple</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-8"><i class="fa fa-check"></i>2.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica"><i class="fa fa-check"></i>2.2. Predicció dels nivells de Xpert en funció de l’expressió gènica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltiple"><i class="fa fa-check"></i>3. Model de regressió lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-9"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-i-ledat"><i class="fa fa-check"></i>3.2. Predicció dels nivells de Xpert en funció de l’expressió gènica i l’edat</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltipleii"><i class="fa fa-check"></i>4. Model de regressió lineal múltiple(II)</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-10"><i class="fa fa-check"></i>4.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-de-dos-gens"><i class="fa fa-check"></i>4.2. Predicció dels nivells de Xpert en funció de l’expressió gènica de dos gens</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html"><i class="fa fa-check"></i>Pràctica 8. Models de Regressió lineal (II)</a>
 <ul>
-<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#objectius-4"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#descripció-de-la-pràctica-3"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#objectius-2"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#descripció-de-la-pràctica-1"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html"><i class="fa fa-check"></i>Pràctica 9. Models de Regressió logística (I)</a>
 <ul>
-<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#objectius-5"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#descripció-de-la-pràctica-4"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#objectius-3"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#descripció-de-la-pràctica-2"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html"><i class="fa fa-check"></i>Pràctica 10. Models de Regressió logística (II)</a>
 <ul>
-<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#objectius-6"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#descripció-de-la-pràctica-5"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#objectius-4"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#descripció-de-la-pràctica-3"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html"><i class="fa fa-check"></i>Pràctica 11. Visualització i interpretació de resultats de seqüenciació</a>
 <ul>
-<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#objectius-7"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#descripció-de-la-pràctica-6"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#objectius-5"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#descripció-de-la-pràctica-4"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 </ul>
 
@@ -272,12 +297,300 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="pràctica-6.-estadística-no-paramètrica-ii-test-de-kruskal-wallis-i-proves-post-hoc" class="section level1 hasAnchor">
 <h1>Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc<a href="06-pract6-noparamII.html#pràctica-6.-estadística-no-paramètrica-ii-test-de-kruskal-wallis-i-proves-post-hoc" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="objectius-2" class="section level2 hasAnchor">
-<h2>Objectius<a href="06-pract6-noparamII.html#objectius-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="objectius-de-la-pràctica-3" class="section level2 hasAnchor">
+<h2>Objectius de la pràctica<a href="06-pract6-noparamII.html#objectius-de-la-pràctica-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Els objectius principals de la pràctica són:</p>
+<ul>
+<li>Manipulació de data.frames (filtrar files segons diferents criteris)</li>
+<li>Identificar el test estadístic més apropiat en cada cas</li>
+<li>Treballar amb estadística no paramètrica</li>
+<li>Crear visualitzacions adequades per presentar els resultats</li>
+<li>Interpretar correctament els resultats (outputs) dels diferents testos</li>
+<li>Relacionar les hipòtesis estadístiques amb les hipòtesis científiques</li>
+</ul>
+<p><br></p>
 </div>
-<div id="descripció-de-la-pràctica-1" class="section level2 hasAnchor">
-<h2>Descripció de la pràctica<a href="06-pract6-noparamII.html#descripció-de-la-pràctica-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="importar-dades-a-r-4" class="section level2 hasAnchor">
+<h2>1. Importar dades a R<a href="06-pract6-noparamII.html#importar-dades-a-r-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Crea un nou RMarkdown anomenat “Practica6” i guarda’l a la carpeta de Pràctiques.
+</p>
+</div>
+<ul>
+<li>Crea un nou <em>chunk</em> que inclogui les diferents llibreries que
+utilitzarem durant la pràctica:</li>
+</ul>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="06-pract6-noparamII.html#cb169-1" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb169-2"><a href="06-pract6-noparamII.html#cb169-2" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<ul>
+<li>En un altre <em>chunk</em> defineix el teu directori de treball i carrega
+les dades.</li>
+</ul>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="06-pract6-noparamII.html#cb170-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;path/to/your/folder/with/data&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Carrega les dades del fitxer (<em>practR_dades.csv</em>)</li>
+</ul>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="06-pract6-noparamII.html#cb171-1" tabindex="-1"></a><span class="co"># carregar dades</span></span>
+<span id="cb171-2"><a href="06-pract6-noparamII.html#cb171-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;dades/practR_dades.csv&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;,&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
+<ul>
+<li>Fes les transformacions necessàries:</li>
+</ul>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="06-pract6-noparamII.html#cb172-1" tabindex="-1"></a><span class="co"># transformem a factor</span></span>
+<span id="cb172-2"><a href="06-pract6-noparamII.html#cb172-2" tabindex="-1"></a>df<span class="sc">$</span>Individu <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Individu)</span>
+<span id="cb172-3"><a href="06-pract6-noparamII.html#cb172-3" tabindex="-1"></a>df<span class="sc">$</span>Temps <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Temps, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">24</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;basal&quot;</span>, <span class="st">&quot;1set&quot;</span>, <span class="st">&quot;4set&quot;</span>, <span class="st">&quot;24set&quot;</span>))</span>
+<span id="cb172-4"><a href="06-pract6-noparamII.html#cb172-4" tabindex="-1"></a>df<span class="sc">$</span>Sexe <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Sexe)</span>
+<span id="cb172-5"><a href="06-pract6-noparamII.html#cb172-5" tabindex="-1"></a>df<span class="sc">$</span>Tractament <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Tractament)</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="comparació-de-lexpressió-gènica-entre-més-de-dues-mostres" class="section level2 hasAnchor">
+<h2>2. Comparació de l’expressió gènica entre més de dues mostres<a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-entre-més-de-dues-mostres" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="research-question-box">
+<div class="rq-title">
+Pregunta de recerca
+</div>
+<p>
+L’expressió del gen 43 al cap de 4 setmanes de tractament difereix entre els individus que s’acaben curant, els que no i els controls?
+</p>
+</div>
+<p>Per aquesta pràctica ens centrarem en l’expressió del <strong>Gen 43</strong>. Concretament estudiarem la seva expressió al cap de <strong>4 setmanes</strong> d’haver administrat el medicament en <strong>pacients que s’acaben curant</strong>, <strong>pacients que no es curen</strong> i <strong>controls</strong></p>
+<div id="selecció-de-mostres-per-lanàlisi-6" class="section level3 hasAnchor">
+<h3>2.1. Selecció de mostres per l’anàlisi<a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-6" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Crea un nou data.frame (<code>df4</code>) amb mostres d’expressió dels gens al cap de 4 setmanes d’haver començat el tractament.</li>
+</ul>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="06-pract6-noparamII.html#cb173-1" tabindex="-1"></a>ind_4 <span class="ot">&lt;-</span> <span class="fu">which</span>(df<span class="sc">$</span>Temps <span class="sc">==</span> <span class="st">&quot;4set&quot;</span>)</span>
+<span id="cb173-2"><a href="06-pract6-noparamII.html#cb173-2" tabindex="-1"></a>df4 <span class="ot">&lt;-</span> df[ind_4,]</span></code></pre></div>
+<ul>
+<li>Re-defineix els factors <code>Individu</code> i <code>Temps</code></li>
+</ul>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="06-pract6-noparamII.html#cb174-1" tabindex="-1"></a>df4<span class="sc">$</span>Temps <span class="ot">&lt;-</span> <span class="fu">factor</span>(df4<span class="sc">$</span>Temps)</span>
+<span id="cb174-2"><a href="06-pract6-noparamII.html#cb174-2" tabindex="-1"></a>df4<span class="sc">$</span>Individu <span class="ot">&lt;-</span> <span class="fu">factor</span>(df4<span class="sc">$</span>Individu)</span></code></pre></div>
+<ul>
+<li>Abans de continuar, observa les dades i comprova que has seleccionat
+les mostres desitjades.</li>
+</ul>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="06-pract6-noparamII.html#cb175-1" tabindex="-1"></a><span class="fu">table</span>(df4<span class="sc">$</span>Tractament, df4<span class="sc">$</span>Temps)</span></code></pre></div>
+<pre><code>##           
+##            4set
+##   control    30
+##   curat      30
+##   no curat   30</code></pre>
+</div>
+<div id="anàlisi-de-lexpressió-entre-curats-no-curats-i-controls" class="section level3 hasAnchor">
+<h3>2.2. Anàlisi de l’expressió entre curats, no curats i controls<a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-entre-curats-no-curats-i-controls" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="exploració-de-les-dades-8" class="section level4 hasAnchor">
+<h4>Exploració de les dades<a href="06-pract6-noparamII.html#exploració-de-les-dades-8" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+<ul>
+<li>Visualitza l’expressió del gen els tres grups d’individus
+</p>
+<p>
+<ul>
+<li>Reporta numèricament els valors de la mediana i la mitjana del gen 43 en els tres grups de pacients estudiats
+</p>
+</div></li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="anàlisi-estadística-8" class="section level4 hasAnchor">
+<h4>Anàlisi estadística<a href="06-pract6-noparamII.html#anàlisi-estadística-8" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Per respondre a la pregunta anterior <em>“l’expressió del Gen 43 és diferent entre controls, curats i no curats?”</em>, haurem de comparar els valors de l’expressió del gen entre aquests tres grups.</p>
+<ul>
+<li><p>Es tracta d’un experiment amb dades independents o dependents entre els grups estudiats?</p></li>
+<li><p>Quins testos coneixes per comparar la mitjana/mediana entre tres grups?</p></li>
+<li><p>Quina és la principal diferència entre ells? Quan apliquem un i quan l’altre?</p></li>
+</ul>
+<p>Abans d’aplicar el test comprovarem la distribució de les dades</p>
+<p><strong>1r.</strong> Comprovar supòsits</p>
+<ol style="list-style-type: upper-roman">
+<li>Comprovació de la normalitat</li>
+</ol>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+<ul>
+<li>Comprova si les dades d’expressió del gen 43 segueixen una distribució normal en tots els grups estudiats. Descriu els resultats (menciona les hipòtesis específiques del test de shapiro).
+</p>
+<p>
+<ul>
+<li>Visualitza amb un QQ plot la normalitat de les dades de cada grup (fes-ho amb la
+funció <code>ggqqplot()</code>). El gràfic concorda amb el resultat del test?
+</p>
+</div></li>
+</ul></li>
+</ul>
+<p><br></p>
+<p><strong>2n.</strong> Prova de Kruskal-Wallis</p>
+<p>Efectivament, les dades no segueixen una distribució normal. Per tant, optem per un test no paramètric: <strong>test de Kruskal-Wallis</strong></p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+<ul>
+<li>Planteja les hipòtesis (nul·la i alternativa) del test estadístic en aquest cas concret
+</p>
+<p>
+<ul>
+<li>Realitza el test i comenta els resultats
+</p>
+</div></li>
+</ul></li>
+</ul>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="06-pract6-noparamII.html#cb177-1" tabindex="-1"></a><span class="fu">kruskal.test</span>(df4<span class="sc">$</span>Gen_43 <span class="sc">~</span> df4<span class="sc">$</span>Tractament)</span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  df4$Gen_43 by df4$Tractament
+## Kruskal-Wallis chi-squared = 9.5484, df = 2, p-value = 0.008445</code></pre>
+<p><strong>3r.</strong> Prova Post-hoc</p>
+<ul>
+<li>El resultat del test de Kruskal-Wallis ens informa de que hi ha diferències entre almenys una de les poblacions estudiades, però quina? Realitza múltiples proves de wilcoxon (prova post-hoc no paramètrica) per identificar les diferències concretes entre els grup.</li>
+</ul>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="06-pract6-noparamII.html#cb179-1" tabindex="-1"></a><span class="fu">pairwise.wilcox.test</span>(df4<span class="sc">$</span>Gen_43, df4<span class="sc">$</span>Tractament)</span></code></pre></div>
+<pre><code>## Warning in wilcox.test.default(xi, xj, paired = paired, ...): cannot compute
+## exact p-value with ties</code></pre>
+<pre><code>## 
+##  Pairwise comparisons using Wilcoxon rank sum test with continuity correction 
+## 
+## data:  df4$Gen_43 and df4$Tractament 
+## 
+##          control curat
+## curat    0.451   -    
+## no curat 0.007   0.061
+## 
+## P value adjustment method: holm</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Interpreta els resultats i escriu una petita conclusió dels resultats obtinguts en aquest apartat. Ajuda’t del boxplot que has fet anteriorment per descriure els resultats.
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="comparació-de-lexpressió-gènica-al-llarg-del-temps" class="section level2 hasAnchor">
+<h2>3. Comparació de l’expressió gènica al llarg del temps<a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-al-llarg-del-temps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="research-question-box">
+<div class="rq-title">
+Pregunta de recerca
+</div>
+<p>
+L’expressió d’aquest gen en individus curats varia al llarg del temps?
+</p>
+</div>
+<div id="selecció-de-mostres-per-lanàlisi-7" class="section level3 hasAnchor">
+<h3>3.1. Selecció de mostres per l’anàlisi<a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-7" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Crea un nou data.frame, <code>df_c</code> que contingui mostres dels individus curats per cada un dels temps mostrejats
+</p>
+</div>
+<ul>
+<li>Re-defineix el factor <code>Tractament</code>, <code>Individu</code> i <code>Temps</code></li>
+</ul>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="06-pract6-noparamII.html#cb182-1" tabindex="-1"></a>df_c<span class="sc">$</span>Tractament <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_c<span class="sc">$</span>Tractament)</span>
+<span id="cb182-2"><a href="06-pract6-noparamII.html#cb182-2" tabindex="-1"></a>df_c<span class="sc">$</span>Individu <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_c<span class="sc">$</span>Individu)</span>
+<span id="cb182-3"><a href="06-pract6-noparamII.html#cb182-3" tabindex="-1"></a>df_c<span class="sc">$</span>Temps <span class="ot">&lt;-</span> <span class="fu">factor</span>(df_c<span class="sc">$</span>Temps)</span></code></pre></div>
+</div>
+<div id="anàlisi-de-lexpressió-gènica-en-individus-curats-al-llarg-del-temps" class="section level3 hasAnchor">
+<h3>3.2. Anàlisi de l’expressió gènica en individus curats al llarg del temps<a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-gènica-en-individus-curats-al-llarg-del-temps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="exploració-de-les-dades-9" class="section level4 hasAnchor">
+<h4>Exploració de les dades<a href="06-pract6-noparamII.html#exploració-de-les-dades-9" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+<ul>
+<li>Fes un gràfic per representar l’expressió del gen 43 al llarg del temps
+</p>
+<p>
+<ul>
+<li>Descriu el gràfic anterior i digues quins poden ser els resultats
+esperats
+</p>
+</div></li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="anàlisi-estadística-9" class="section level4 hasAnchor">
+<h4>Anàlisi estadística<a href="06-pract6-noparamII.html#anàlisi-estadística-9" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Per tal de respondre a la pregunta de <em>“l’expressió del gen 43 en individus curats és constant o varia durat el temps?”</em> caldrà aplicar un test que compari les expressions a diferents temps.</p>
+<ul>
+<li><p>Es tracta d’un experiment amb dades independents o dependents entre els grups estudiats?</p></li>
+<li><p>Quins testos coneixes que comparin mitjanes/medianes entre més de dues poblacions com en aquest cas? Quina diferència hi ha entre aquests testos (<em>i.e.</em>, quan els utilitzem cada un)?</p></li>
+</ul>
+<p><strong>1r.</strong> Comprovar supòsits</p>
+<ol style="list-style-type: upper-roman">
+<li>Comprovació de la normalitat (es comprova dins de cada grup estudiat mitjançant el
+test de shapiro: <code>shapiro.test()</code>)</li>
+</ol>
+<ul>
+<li>Visualitza la normalitat dins de cada grup. Recorda que en aquest cas els grups estan definits per <code>$Temps</code> i <code>$Individu</code>…hi ha una sola mostra per grup! Per tant, podem optar per fer directament l’anova i comprovar la normalitat dels residus de l’anova.</li>
+</ul>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="06-pract6-noparamII.html#cb183-1" tabindex="-1"></a>an <span class="ot">&lt;-</span> <span class="fu">aov</span>(df_c<span class="sc">$</span>Gen_43 <span class="sc">~</span> df_c<span class="sc">$</span>Temps<span class="sc">+</span>df_c<span class="sc">$</span>Individu)</span>
+<span id="cb183-2"><a href="06-pract6-noparamII.html#cb183-2" tabindex="-1"></a><span class="fu">shapiro.test</span>(an<span class="sc">$</span>residuals)</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  an$residuals
+## W = 0.94211, p-value = 5.956e-05</code></pre>
+<ul>
+<li>Comenta els resultats</li>
+</ul>
+<p><br></p>
+<p><strong>2n.</strong> Test de Friedman per mesures repetides</p>
+<p>Com que les dades no segueixen una distribució normal haurem d’aplicar un test no paramètric: <strong>test Friedman per mesures repetides</strong></p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Planteja les hipòtesis (nul·la i alternativa) del test estadístic
+</p>
+</div>
+<ul>
+<li>Realitza el test. Defineix els tres arguments de la funció <code>friedman.test()</code></li>
+</ul>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="06-pract6-noparamII.html#cb185-1" tabindex="-1"></a><span class="fu">friedman.test</span>(df_c<span class="sc">$</span>Gen_43, df_c<span class="sc">$</span>Temps, df_c<span class="sc">$</span>Individu)</span></code></pre></div>
+<pre><code>## 
+##  Friedman rank sum test
+## 
+## data:  df_c$Gen_43, df_c$Temps and df_c$Individu
+## Friedman chi-squared = 1.36, df = 3, p-value = 0.7149</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Interpreta els resultats. Concorda amb la teva intuïció inicial dels resultats?
+</p>
+</div>
+<ul>
+<li>En el cas que haguéssim trobat diferències significatives en almenys un dels temps, com ho fariem per identificar entre quins temps concrets hi ha aquestes diferències? Busca la funció <code>pairwise.wilcox.test()</code> i explica com hauriem d’indicar que es tracta de mesures repetides (pots escriure la funció per exemplificar-ho).</li>
+</ul>
 
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -300,42 +613,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "section"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
 });
 });
 </script>

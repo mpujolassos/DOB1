@@ -1,0 +1,379 @@
+# Pràctica 7.   Models de Regressió lineal (I)
+
+## Objectius de la pràctica
+
+Els objectius principals de la pràctica són:
+
+-   Manipulació de data.frames (filtrar files segons diferents criteris)
+-   Analitzar la correlació entre dues variables
+-   Treballar amb models de regressió lineals
+
+<br>
+
+## 1. Importar dades a R
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou RMarkdown anomenat "Practica7" i guarda'l a la carpeta de Pràctiques. 
+</p>
+</div>
+
+-   Crea un nou *chunk* que inclogui les diferents llibreries que
+    utilitzarem durant la pràctica:
+
+```{r message=FALSE, warning=FALSE}
+library(ggpubr)
+library(car)
+```
+
+-   En un altre *chunk* defineix el teu directori de treball i carrega
+    les dades. 
+```{r eval=FALSE, include=TRUE}
+setwd("path/to/your/folder/with/data")
+```
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+setwd("C:/Users/10033834/OneDrive - Universitat de Vic/1. Docencia UVic/Biomed_2.Dades Òmiques i Bioinformàtica I/2. Practiques")
+```
+
+-   Carrega les dades del fitxer (*practR_dades.csv*) 
+    
+```{r}
+# carregar dades
+df <- read.csv2("dades/practR_dades.csv", dec = ",", row.names = 1)
+```
+
+-   Fes les transformacions necessàries:
+
+```{r include=TRUE}
+# transformem a factor
+df$Individu <- factor(df$Individu)
+df$Temps <- factor(df$Temps, levels = c(0, 1, 4, 24), labels = c("basal", "1set", "4set", "24set"))
+df$Sexe <- factor(df$Sexe)
+df$Tractament <- factor(df$Tractament)
+```
+
+<br>
+
+## 2. Model de regressió lineal simple
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>L'expressió del gen 30 és un bon predictor del nivell d'infecció de Tuberculosi?
+  </p>
+</div>
+
+En aquesta pràctica analitzarem si coneixent l'expressió del **Gen 30** som capaços de predir els nivells d'infecció (a través de la variable Xpert). Per fer-ho, estudiarem els individus infectats (**curats i no curats**) després de **4 setmanes** d'haver administrat el medicament.
+
+Abans de tot és imprescindible identificar bé quines són les variables que treballarem i quin paper juguen a l'anàlisi.
+
+**Variable resposta** (y; variable dependent): aquella variable que estem analitzant i de la qual en volem predir el seu valor
+
+**Variable predictora** (x; variable independent): aquella variable que en volem veure el seu efecte i ens serveix per predir la resposta
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Defineix quina és la variable resposta i quina la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).</p>
+</div>
+
+### 2.1. Selecció de mostres per l'anàlisi
+
+-   Crea un nou data.frame (`df4cc`) amb mostres d'expressió dels gens al cap de 4 setmanes d'haver començat el tractament d'individus curats i no curats. Una manera de fer-ho és utilitzant l'expressió `dades$Tractament != "control"`. Què creus que significa `!=`?
+
+```{r echo=TRUE}
+ind_4cc <- which(df$Temps == "4set" & df$Tractament != "control")
+df4cc <- df[ind_4cc,]
+```
+
+-   Re-defineix el factor `Tractament`, `Individu`, `Temps`
+
+```{r}
+df4cc$Tractament <- factor(df4cc$Tractament)
+df4cc$Temps <- factor(df4cc$Temps)
+df4cc$Individu <- factor(df4cc$Individu)
+```
+
+-   Abans de continuar, observa les dades i comprova que has seleccionat
+    les mostres desitjades.
+```{r}
+table(df4cc$Tractament, df4cc$Temps)
+```
+    
+
+### 2.2. Predicció dels nivells de Xpert en funció de l'expressió gènica
+
+#### Exploració de les dades
+
+-   Visualitza (gràficament) els nivells de xpert en funció de l'expressió del gen 30
+
+```{r echo=TRUE}
+ggscatter(data = df4cc, x = "Gen_30", y = "Xpert")
+```
+
+-   Reporta numèricament la correlació entre les dues variables
+
+```{r echo=TRUE}
+cor(df4cc$Gen_30,df4cc$Xpert)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>En base al gràfic i a la correlació entre les variables, creus que podriem trobar un bon model per predir els nivells de Xpert en funció dels nivells d'expressió del gen 30?</p>
+</div>
+
+<br>
+
+#### Anàlisi estadística
+
+En aquest cas, construirem un **model de regressió lineal** ja que la variable resposta (xpert) és numèrica. Aquest model prendrà la següent fòrmula:
+
+$$ Y(x) = \beta_0 + \beta_1 \cdot x_1$$
+
+-   Digues què representa $Y(x)$:
+
+-   Digues què representa $\beta_0$:
+
+-   Digues què representa $\beta_1$:
+
+-   Digues què representa $x_1$:
+
+<br>
+
+**Model de regressió lineal simple**
+
+-   Crea un model de regressió lineal (`model1`) per predir els nivells de xpert en funció de l'expressió del gen 30
+
+```{r}
+model1 <- lm(Xpert ~ Gen_30, data = df4cc)
+model1
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Amb el resultat del `model1`, re-escriu l'expressió de la regressió ($Y(x) = \beta_0 + \beta_1 \cdot x_1$) i interpreta el model</p>
+</div>
+
+-   Torna a crear el gràfic de dispersió i afegeix-hi la recta de regressió del model
+
+```{r}
+ggscatter(data = df4cc, x = "Gen_30", y = "Xpert",
+          add = "reg.line")
+```
+
+
+**Significació del model1**
+
+-   Comprova la significació estadística del `model1`:
+
+```{r}
+summary(model1)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els resultats pel que fa a la significació global i individual de cada variable (si et fa falta, recupera la presentació de la teoria del Tema 4)</p>
+</div>
+
+<br>
+
+## 3. Model de regressió lineal múltiple
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>Les variables edat i expressió del gen 30 són bones predictores del nivell d'infecció de Tuberculosi?
+  </p>
+</div>
+
+Ara comprovarem si l'edat, a més del gen 30, també és bona predictora del nivell d'infecció. Ho farem amb les mateixes mostres(individus infectats (**curats i no curats**) després de **4 setmanes** d'haver administrat el medicament).
+
+Abans de tot és imprescindible identificar bé quines són les variables que treballarem i quin paper juguen a l'anàlisi.
+
+**Variable resposta** (variable dependent): aquella variable que estem analitzant i de la qual en volem predir el seu valor
+
+**Variable predictora** (Variable independent): aquella variable que en volem veure el seu efecte i ens serveix per predir la var. resposta
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Defineix quina és la variable resposta i quina, o quines, la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).</p>
+</div>
+
+### 3.1. Selecció de mostres per l'anàlisi
+
+En aquest cas treballarem amb les mateixes mostres que en l'anàlisi anterior
+
+### 3.2. Predicció dels nivells de Xpert en funció de l'expressió gènica i l'edat
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>-   Visualitza (gràficament) els nivells de xpert en funció de l'expressió del gen 30 i l'edat.</p>
+  <p>-   Reporta numèricament la correlació entre `Xpert` i `Edat`.</p>
+  <p>-   En base al gràfic i a la correlació entre les variables, creus que l'edat pot ser una bona predictora dels nivells de Xpert?</p>
+</div>
+
+
+
+```{r eval=FALSE, include=FALSE}
+ggscatter(data = df4cc, x = "Gen_30", y = "Xpert",
+          color = "Edat")
+```
+
+```{r echo=FALSE}
+cor(df4cc$Edat,df4cc$Xpert)
+```
+
+
+<br>
+
+#### Anàlisi estadística
+
+En aquest cas, construirem un **model de regressió lineal múltiple** ja que la variable resposta (xpert) és numèrica i hi ha dues variables predictores. Aquest model prendrà la següent fòrmula:
+
+$$ Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2$$
+-   Digues què representa $Y(x)$:
+
+-   Digues què representa $\beta_0$:
+
+-   Digues què representa $\beta_1$:
+
+-   Digues què representa $x_1$:
+
+-   Digues què representa $\beta2$:
+
+-   Digues què representa $x_2$:
+
+<br>
+
+**Model de regressió lineal múltiple**
+
+-   Crea un model de regressió lineal (`model2`) per predir els nivells de xpert en funció de l'expressió del gen 30
+
+```{r}
+model2 <- lm(Xpert~Gen_30+Edat, data = df4cc)
+model2
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Amb el resultat del `model2`, re-escriu l'expressió de la regressió ($Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2$) i interpreta els resultats del model</p>
+</div>
+
+
+**Significació del model2**
+
+-   Comprova la significació estadística del `model2`:
+
+```{r}
+summary(model2)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els resultats pel que fa a la significació global i individual de cada variable</p>
+</div>
+
+
+<br>
+
+## 4. Model de regressió lineal múltiple(II)
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>Les variables edat i expressió del gen 30 són bones predictores del nivell d'infecció de Tuberculosi?
+  </p>
+</div>
+
+Ara comprovarem si el gen 8, a més del gen 30, també és bona predictora del nivell d'infecció. Ho farem amb les mateixes mostres(individus infectats (**curats i no curats**) després de **4 setmanes** d'haver administrat el medicament).
+
+Abans de tot és imprescindible identificar bé quines són les variables que treballarem i quin paper juguen a l'anàlisi.
+
+**Variable resposta** (variable dependent): aquella variable que estem analitzant i de la qual en volem predir el seu valor
+
+**Variable predictora** (Variable independent): aquella variable que en volem veure el seu efecte i ens serveix per predir la var. resposta
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Defineix quina és la variable resposta i quina, o quines, la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).</p>
+</div>
+
+
+### 4.1. Selecció de mostres per l'anàlisi
+
+En aquest cas treballarem amb les mateixes mostres que en l'anàlisi anterior
+
+### 4.2.  Predicció dels nivells de Xpert en funció de l'expressió gènica de dos gens
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>-   Visualitza (gràficament) els nivells de xpert en funció de l'expressió del gen 8 i el gen 30.</p>
+  <p>-   Reporta numèricament la correlació entre `Xpert` i `Gen_8`. Recupera també la correlació entre `Xpert` i `Gen_30`</p>
+  <p>-   En base al gràfic i a la correlació entre les variables, creus que el gen 8 també està associat als nivells de xpert?</p>
+</div>
+
+
+```{r eval=FALSE, include=FALSE}
+ggscatter(data = df4cc, x = "Gen_30", y = "Xpert", color = "Gen_8")
+```
+
+
+```{r eval=FALSE, include=FALSE}
+cor(df4cc$Gen_8,df4cc$Xpert)
+cor(df4cc$Gen_30,df4cc$Xpert)
+```
+
+
+<br>
+
+#### Anàlisi estadística
+
+En aquest cas, construirem un **model de regressió lineal múltiple** ja que la variable resposta (xpert) és numèrica i hi ha dues variables predictores. Aquest model prendrà la següent fòrmula:
+
+$$ Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2$$
+
+-   Digues què representa $Y(x)$:
+
+-   Digues què representa $\beta_0$:
+
+-   Digues què representa $\beta_1$:
+
+-   Digues què representa $x_1$:
+
+-   Digues què representa $\beta2$:
+
+-   Digues què representa $x_2$:
+
+<br>
+
+**Model de regressió lineal múltiple**
+
+-   Crea un model de regressió lineal (`model3`) per predir els nivells de xpert en funció de l'expressió del gen 30 i del gen 8
+
+```{r}
+model3 <- lm(Xpert ~ Gen_30 + Gen_8, data = df4cc)
+model3
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Amb el resultat del `model3`, re-escriu l'expressió de la regressió ($Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2$) i interpreta els resultats del model</p>
+</div>
+
+
+
+**Significació del model3**
+
+-   Comprova la significació estadística del `model3`:
+
+```{r}
+summary(model3)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els resultats pel que fa a la significació global i individual de cada variable</p>
+</div>
+
+

@@ -1,0 +1,6 @@
+#  Pràctica 10.   Models de Regressió logística (II)
+
+## Objectius
+
+
+## Descripció de la pràctica

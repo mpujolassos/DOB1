@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Pràctica 7. Models de Regressió lineal (I) | Pràctiques per l’anàlisi de dades òmiques amb R</title>
   <meta name="description" content="Pràctica 7. Models de Regressió lineal (I) | Pràctiques per l’anàlisi de dades òmiques amb R" />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Pràctica 7. Models de Regressió lineal (I) | Pràctiques per l’anàlisi de dades òmiques amb R" />
   <meta property="og:type" content="book" />
@@ -217,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#selecció-de-mostres-per-lanàlisi-4"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#anàlisi-de-lexpressió-del-gen-43-entre-controls-i-curats-al-cap-de-4-setmanes"><i class="fa fa-check"></i>3.2. Anàlisi de l’expressió del gen 43 entre controls i curats al cap de 4 setmanes</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#comparació-de-lexpressió-per-mostres-aparellades-dades-no-normals"><i class="fa fa-check"></i>4. Comparació de l’expressió per mostres aparellades (dades no normals)</a>
+<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#comparació-de-lexpressió-en-mostres-aparellades-dades-no-normals"><i class="fa fa-check"></i>4. Comparació de l’expressió en mostres aparellades (dades no normals)</a>
 <ul>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#selecció-de-mostres-per-lanàlisi-5"><i class="fa fa-check"></i>4.1. Selecció de mostres per l’anàlisi</a></li>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#anàlisi-de-lexpressió-en-pacients-curats-durant-la-primera-setmana"><i class="fa fa-check"></i>4.2. Anàlisi de l’expressió en pacients curats durant la primera setmana</a></li>
@@ -225,33 +225,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html"><i class="fa fa-check"></i>Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc</a>
 <ul>
-<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#objectius-2"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#descripció-de-la-pràctica-1"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#objectius-de-la-pràctica-3"><i class="fa fa-check"></i>Objectius de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#importar-dades-a-r-4"><i class="fa fa-check"></i>1. Importar dades a R</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-entre-més-de-dues-mostres"><i class="fa fa-check"></i>2. Comparació de l’expressió gènica entre més de dues mostres</a>
+<ul>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-6"><i class="fa fa-check"></i>2.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-entre-curats-no-curats-i-controls"><i class="fa fa-check"></i>2.2. Anàlisi de l’expressió entre curats, no curats i controls</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-al-llarg-del-temps"><i class="fa fa-check"></i>3. Comparació de l’expressió gènica al llarg del temps</a>
+<ul>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-7"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-gènica-en-individus-curats-al-llarg-del-temps"><i class="fa fa-check"></i>3.2. Anàlisi de l’expressió gènica en individus curats al llarg del temps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html"><i class="fa fa-check"></i>Pràctica 7. Models de Regressió lineal (I)</a>
 <ul>
-<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#objectius-3"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#descripció-de-la-pràctica-2"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#objectius-de-la-pràctica-4"><i class="fa fa-check"></i>Objectius de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#importar-dades-a-r-5"><i class="fa fa-check"></i>1. Importar dades a R</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-simple"><i class="fa fa-check"></i>2. Model de regressió lineal simple</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-8"><i class="fa fa-check"></i>2.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica"><i class="fa fa-check"></i>2.2. Predicció dels nivells de Xpert en funció de l’expressió gènica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltiple"><i class="fa fa-check"></i>3. Model de regressió lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-9"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-i-ledat"><i class="fa fa-check"></i>3.2. Predicció dels nivells de Xpert en funció de l’expressió gènica i l’edat</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltipleii"><i class="fa fa-check"></i>4. Model de regressió lineal múltiple(II)</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-10"><i class="fa fa-check"></i>4.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-de-dos-gens"><i class="fa fa-check"></i>4.2. Predicció dels nivells de Xpert en funció de l’expressió gènica de dos gens</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html"><i class="fa fa-check"></i>Pràctica 8. Models de Regressió lineal (II)</a>
 <ul>
-<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#objectius-4"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#descripció-de-la-pràctica-3"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#objectius-2"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#descripció-de-la-pràctica-1"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html"><i class="fa fa-check"></i>Pràctica 9. Models de Regressió logística (I)</a>
 <ul>
-<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#objectius-5"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#descripció-de-la-pràctica-4"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#objectius-3"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#descripció-de-la-pràctica-2"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html"><i class="fa fa-check"></i>Pràctica 10. Models de Regressió logística (II)</a>
 <ul>
-<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#objectius-6"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#descripció-de-la-pràctica-5"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#objectius-4"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#descripció-de-la-pràctica-3"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html"><i class="fa fa-check"></i>Pràctica 11. Visualització i interpretació de resultats de seqüenciació</a>
 <ul>
-<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#objectius-7"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#descripció-de-la-pràctica-6"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#objectius-5"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#descripció-de-la-pràctica-4"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 </ul>
 
@@ -272,12 +297,438 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="pràctica-7.-models-de-regressió-lineal-i" class="section level1 hasAnchor">
 <h1>Pràctica 7. Models de Regressió lineal (I)<a href="07-pract7-reglinealI.html#pràctica-7.-models-de-regressió-lineal-i" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="objectius-3" class="section level2 hasAnchor">
-<h2>Objectius<a href="07-pract7-reglinealI.html#objectius-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="objectius-de-la-pràctica-4" class="section level2 hasAnchor">
+<h2>Objectius de la pràctica<a href="07-pract7-reglinealI.html#objectius-de-la-pràctica-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Els objectius principals de la pràctica són:</p>
+<ul>
+<li>Manipulació de data.frames (filtrar files segons diferents criteris)</li>
+<li>Analitzar la correlació entre dues variables</li>
+<li>Treballar amb models de regressió lineals</li>
+</ul>
+<p><br></p>
 </div>
-<div id="descripció-de-la-pràctica-2" class="section level2 hasAnchor">
-<h2>Descripció de la pràctica<a href="07-pract7-reglinealI.html#descripció-de-la-pràctica-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="importar-dades-a-r-5" class="section level2 hasAnchor">
+<h2>1. Importar dades a R<a href="07-pract7-reglinealI.html#importar-dades-a-r-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Crea un nou RMarkdown anomenat “Practica7” i guarda’l a la carpeta de Pràctiques.
+</p>
+</div>
+<ul>
+<li>Crea un nou <em>chunk</em> que inclogui les diferents llibreries que
+utilitzarem durant la pràctica:</li>
+</ul>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="07-pract7-reglinealI.html#cb187-1" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span>
+<span id="cb187-2"><a href="07-pract7-reglinealI.html#cb187-2" tabindex="-1"></a><span class="fu">library</span>(car)</span></code></pre></div>
+<ul>
+<li>En un altre <em>chunk</em> defineix el teu directori de treball i carrega
+les dades.</li>
+</ul>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="07-pract7-reglinealI.html#cb188-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;path/to/your/folder/with/data&quot;</span>)</span></code></pre></div>
+<ul>
+<li>Carrega les dades del fitxer (<em>practR_dades.csv</em>)</li>
+</ul>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="07-pract7-reglinealI.html#cb189-1" tabindex="-1"></a><span class="co"># carregar dades</span></span>
+<span id="cb189-2"><a href="07-pract7-reglinealI.html#cb189-2" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;dades/practR_dades.csv&quot;</span>, <span class="at">dec =</span> <span class="st">&quot;,&quot;</span>, <span class="at">row.names =</span> <span class="dv">1</span>)</span></code></pre></div>
+<ul>
+<li>Fes les transformacions necessàries:</li>
+</ul>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="07-pract7-reglinealI.html#cb190-1" tabindex="-1"></a><span class="co"># transformem a factor</span></span>
+<span id="cb190-2"><a href="07-pract7-reglinealI.html#cb190-2" tabindex="-1"></a>df<span class="sc">$</span>Individu <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Individu)</span>
+<span id="cb190-3"><a href="07-pract7-reglinealI.html#cb190-3" tabindex="-1"></a>df<span class="sc">$</span>Temps <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Temps, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">24</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;basal&quot;</span>, <span class="st">&quot;1set&quot;</span>, <span class="st">&quot;4set&quot;</span>, <span class="st">&quot;24set&quot;</span>))</span>
+<span id="cb190-4"><a href="07-pract7-reglinealI.html#cb190-4" tabindex="-1"></a>df<span class="sc">$</span>Sexe <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Sexe)</span>
+<span id="cb190-5"><a href="07-pract7-reglinealI.html#cb190-5" tabindex="-1"></a>df<span class="sc">$</span>Tractament <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>Tractament)</span></code></pre></div>
+<p><br></p>
+</div>
+<div id="model-de-regressió-lineal-simple" class="section level2 hasAnchor">
+<h2>2. Model de regressió lineal simple<a href="07-pract7-reglinealI.html#model-de-regressió-lineal-simple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="research-question-box">
+<div class="rq-title">
+Pregunta de recerca
+</div>
+<p>
+L’expressió del gen 30 és un bon predictor del nivell d’infecció de Tuberculosi?
+</p>
+</div>
+<p>En aquesta pràctica analitzarem si coneixent l’expressió del <strong>Gen 30</strong> som capaços de predir els nivells d’infecció (a través de la variable Xpert). Per fer-ho, estudiarem els individus infectats (<strong>curats i no curats</strong>) després de <strong>4 setmanes</strong> d’haver administrat el medicament.</p>
+<p>Abans de tot és imprescindible identificar bé quines són les variables que treballarem i quin paper juguen a l’anàlisi.</p>
+<p><strong>Variable resposta</strong> (y; variable dependent): aquella variable que estem analitzant i de la qual en volem predir el seu valor</p>
+<p><strong>Variable predictora</strong> (x; variable independent): aquella variable que en volem veure el seu efecte i ens serveix per predir la resposta</p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Defineix quina és la variable resposta i quina la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).
+</p>
+</div>
+<div id="selecció-de-mostres-per-lanàlisi-8" class="section level3 hasAnchor">
+<h3>2.1. Selecció de mostres per l’anàlisi<a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-8" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Crea un nou data.frame (<code>df4cc</code>) amb mostres d’expressió dels gens al cap de 4 setmanes d’haver començat el tractament d’individus curats i no curats. Una manera de fer-ho és utilitzant l’expressió <code>dades$Tractament != "control"</code>. Què creus que significa <code>!=</code>?</li>
+</ul>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="07-pract7-reglinealI.html#cb191-1" tabindex="-1"></a>ind_4cc <span class="ot">&lt;-</span> <span class="fu">which</span>(df<span class="sc">$</span>Temps <span class="sc">==</span> <span class="st">&quot;4set&quot;</span> <span class="sc">&amp;</span> df<span class="sc">$</span>Tractament <span class="sc">!=</span> <span class="st">&quot;control&quot;</span>)</span>
+<span id="cb191-2"><a href="07-pract7-reglinealI.html#cb191-2" tabindex="-1"></a>df4cc <span class="ot">&lt;-</span> df[ind_4cc,]</span></code></pre></div>
+<ul>
+<li>Re-defineix el factor <code>Tractament</code>, <code>Individu</code>, <code>Temps</code></li>
+</ul>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="07-pract7-reglinealI.html#cb192-1" tabindex="-1"></a>df4cc<span class="sc">$</span>Tractament <span class="ot">&lt;-</span> <span class="fu">factor</span>(df4cc<span class="sc">$</span>Tractament)</span>
+<span id="cb192-2"><a href="07-pract7-reglinealI.html#cb192-2" tabindex="-1"></a>df4cc<span class="sc">$</span>Temps <span class="ot">&lt;-</span> <span class="fu">factor</span>(df4cc<span class="sc">$</span>Temps)</span>
+<span id="cb192-3"><a href="07-pract7-reglinealI.html#cb192-3" tabindex="-1"></a>df4cc<span class="sc">$</span>Individu <span class="ot">&lt;-</span> <span class="fu">factor</span>(df4cc<span class="sc">$</span>Individu)</span></code></pre></div>
+<ul>
+<li>Abans de continuar, observa les dades i comprova que has seleccionat
+les mostres desitjades.</li>
+</ul>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="07-pract7-reglinealI.html#cb193-1" tabindex="-1"></a><span class="fu">table</span>(df4cc<span class="sc">$</span>Tractament, df4cc<span class="sc">$</span>Temps)</span></code></pre></div>
+<pre><code>##           
+##            4set
+##   curat      30
+##   no curat   30</code></pre>
+</div>
+<div id="predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica" class="section level3 hasAnchor">
+<h3>2.2. Predicció dels nivells de Xpert en funció de l’expressió gènica<a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="exploració-de-les-dades-10" class="section level4 hasAnchor">
+<h4>Exploració de les dades<a href="07-pract7-reglinealI.html#exploració-de-les-dades-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Visualitza (gràficament) els nivells de xpert en funció de l’expressió del gen 30</li>
+</ul>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="07-pract7-reglinealI.html#cb195-1" tabindex="-1"></a><span class="fu">ggscatter</span>(<span class="at">data =</span> df4cc, <span class="at">x =</span> <span class="st">&quot;Gen_30&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Xpert&quot;</span>)</span></code></pre></div>
+<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-135-1.png" alt="" width="672" /></p>
+<ul>
+<li>Reporta numèricament la correlació entre les dues variables</li>
+</ul>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="07-pract7-reglinealI.html#cb196-1" tabindex="-1"></a><span class="fu">cor</span>(df4cc<span class="sc">$</span>Gen_30,df4cc<span class="sc">$</span>Xpert)</span></code></pre></div>
+<pre><code>## [1] 0.6092949</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+En base al gràfic i a la correlació entre les variables, creus que podriem trobar un bon model per predir els nivells de Xpert en funció dels nivells d’expressió del gen 30?
+</p>
+</div>
+<p><br></p>
+</div>
+<div id="anàlisi-estadística-10" class="section level4 hasAnchor">
+<h4>Anàlisi estadística<a href="07-pract7-reglinealI.html#anàlisi-estadística-10" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En aquest cas, construirem un <strong>model de regressió lineal</strong> ja que la variable resposta (xpert) és numèrica. Aquest model prendrà la següent fòrmula:</p>
+<p><span class="math display">\[ Y(x) = \beta_0 + \beta_1 \cdot x_1\]</span></p>
+<ul>
+<li><p>Digues què representa <span class="math inline">\(Y(x)\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(\beta_0\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(\beta_1\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(x_1\)</span>:</p></li>
+</ul>
+<p><br></p>
+<p><strong>Model de regressió lineal simple</strong></p>
+<ul>
+<li>Crea un model de regressió lineal (<code>model1</code>) per predir els nivells de xpert en funció de l’expressió del gen 30</li>
+</ul>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="07-pract7-reglinealI.html#cb198-1" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Xpert <span class="sc">~</span> Gen_30, <span class="at">data =</span> df4cc)</span>
+<span id="cb198-2"><a href="07-pract7-reglinealI.html#cb198-2" tabindex="-1"></a>model1</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Xpert ~ Gen_30, data = df4cc)
+## 
+## Coefficients:
+## (Intercept)       Gen_30  
+##       2.868        1.214</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Amb el resultat del <code>model1</code>, re-escriu l’expressió de la regressió (<span class="math inline">\(Y(x) = \beta_0 + \beta_1 \cdot x_1\)</span>) i interpreta el model
+</p>
+</div>
+<ul>
+<li>Torna a crear el gràfic de dispersió i afegeix-hi la recta de regressió del model</li>
+</ul>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="07-pract7-reglinealI.html#cb200-1" tabindex="-1"></a><span class="fu">ggscatter</span>(<span class="at">data =</span> df4cc, <span class="at">x =</span> <span class="st">&quot;Gen_30&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Xpert&quot;</span>,</span>
+<span id="cb200-2"><a href="07-pract7-reglinealI.html#cb200-2" tabindex="-1"></a>          <span class="at">add =</span> <span class="st">&quot;reg.line&quot;</span>)</span></code></pre></div>
+<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-138-1.png" alt="" width="672" /></p>
+<p><strong>Significació del model1</strong></p>
+<ul>
+<li>Comprova la significació estadística del <code>model1</code>:</li>
+</ul>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="07-pract7-reglinealI.html#cb201-1" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Xpert ~ Gen_30, data = df4cc)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -40.123  -7.994  -0.018  10.000  29.302 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   2.8683    11.0123   0.260    0.795    
+## Gen_30        1.2140     0.2075   5.852 2.39e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.55 on 58 degrees of freedom
+## Multiple R-squared:  0.3712, Adjusted R-squared:  0.3604 
+## F-statistic: 34.25 on 1 and 58 DF,  p-value: 2.388e-07</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Interpreta els resultats pel que fa a la significació global i individual de cada variable (si et fa falta, recupera la presentació de la teoria del Tema 4)
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="model-de-regressió-lineal-múltiple" class="section level2 hasAnchor">
+<h2>3. Model de regressió lineal múltiple<a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltiple" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="research-question-box">
+<div class="rq-title">
+Pregunta de recerca
+</div>
+<p>
+Les variables edat i expressió del gen 30 són bones predictores del nivell d’infecció de Tuberculosi?
+</p>
+</div>
+<p>Ara comprovarem si l’edat, a més del gen 30, també és bona predictora del nivell d’infecció. Ho farem amb les mateixes mostres(individus infectats (<strong>curats i no curats</strong>) després de <strong>4 setmanes</strong> d’haver administrat el medicament).</p>
+<p>Abans de tot és imprescindible identificar bé quines són les variables que treballarem i quin paper juguen a l’anàlisi.</p>
+<p><strong>Variable resposta</strong> (variable dependent): aquella variable que estem analitzant i de la qual en volem predir el seu valor</p>
+<p><strong>Variable predictora</strong> (Variable independent): aquella variable que en volem veure el seu efecte i ens serveix per predir la var. resposta</p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Defineix quina és la variable resposta i quina, o quines, la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).
+</p>
+</div>
+<div id="selecció-de-mostres-per-lanàlisi-9" class="section level3 hasAnchor">
+<h3>3.1. Selecció de mostres per l’anàlisi<a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-9" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En aquest cas treballarem amb les mateixes mostres que en l’anàlisi anterior</p>
+</div>
+<div id="predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-i-ledat" class="section level3 hasAnchor">
+<h3>3.2. Predicció dels nivells de Xpert en funció de l’expressió gènica i l’edat<a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-i-ledat" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="exploració-de-les-dades-11" class="section level4 hasAnchor">
+<h4>Exploració de les dades<a href="07-pract7-reglinealI.html#exploració-de-les-dades-11" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+<ul>
+<li>Visualitza (gràficament) els nivells de xpert en funció de l’expressió del gen 30 i l’edat.
+</p>
+<p>
+<ul>
+<li>Reporta numèricament la correlació entre <code>Xpert</code> i <code>Edat</code>.
+</p>
+<p>
+<ul>
+<li>En base al gràfic i a la correlació entre les variables, creus que l’edat pot ser una bona predictora dels nivells de Xpert?
+</p>
+</div></li>
+</ul></li>
+</ul></li>
+</ul>
+<pre><code>## [1] 0.04219692</code></pre>
+<p><br></p>
+</div>
+<div id="anàlisi-estadística-11" class="section level4 hasAnchor">
+<h4>Anàlisi estadística<a href="07-pract7-reglinealI.html#anàlisi-estadística-11" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En aquest cas, construirem un <strong>model de regressió lineal múltiple</strong> ja que la variable resposta (xpert) és numèrica i hi ha dues variables predictores. Aquest model prendrà la següent fòrmula:</p>
+<p><span class="math display">\[ Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2\]</span>
+- Digues què representa <span class="math inline">\(Y(x)\)</span>:</p>
+<ul>
+<li><p>Digues què representa <span class="math inline">\(\beta_0\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(\beta_1\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(x_1\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(\beta2\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(x_2\)</span>:</p></li>
+</ul>
+<p><br></p>
+<p><strong>Model de regressió lineal múltiple</strong></p>
+<ul>
+<li>Crea un model de regressió lineal (<code>model2</code>) per predir els nivells de xpert en funció de l’expressió del gen 30</li>
+</ul>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="07-pract7-reglinealI.html#cb204-1" tabindex="-1"></a>model2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Xpert<span class="sc">~</span>Gen_30<span class="sc">+</span>Edat, <span class="at">data =</span> df4cc)</span>
+<span id="cb204-2"><a href="07-pract7-reglinealI.html#cb204-2" tabindex="-1"></a>model2</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Xpert ~ Gen_30 + Edat, data = df4cc)
+## 
+## Coefficients:
+## (Intercept)       Gen_30         Edat  
+##      1.3034       1.2127       0.0333</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Amb el resultat del <code>model2</code>, re-escriu l’expressió de la regressió (<span class="math inline">\(Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2\)</span>) i interpreta els resultats del model
+</p>
+</div>
+<p><strong>Significació del model2</strong></p>
+<ul>
+<li>Comprova la significació estadística del <code>model2</code>:</li>
+</ul>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="07-pract7-reglinealI.html#cb206-1" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Xpert ~ Gen_30 + Edat, data = df4cc)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -40.889  -8.460   0.617   9.985  28.375 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   1.3034    12.6545   0.103    0.918    
+## Gen_30        1.2127     0.2092   5.796 3.09e-07 ***
+## Edat          0.0333     0.1292   0.258    0.798    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.67 on 57 degrees of freedom
+## Multiple R-squared:  0.372,  Adjusted R-squared:  0.3499 
+## F-statistic: 16.88 on 2 and 57 DF,  p-value: 1.747e-06</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Interpreta els resultats pel que fa a la significació global i individual de cada variable
+</p>
+</div>
+<p><br></p>
+</div>
+</div>
+</div>
+<div id="model-de-regressió-lineal-múltipleii" class="section level2 hasAnchor">
+<h2>4. Model de regressió lineal múltiple(II)<a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltipleii" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="research-question-box">
+<div class="rq-title">
+Pregunta de recerca
+</div>
+<p>
+Les variables edat i expressió del gen 30 són bones predictores del nivell d’infecció de Tuberculosi?
+</p>
+</div>
+<p>Ara comprovarem si el gen 8, a més del gen 30, també és bona predictora del nivell d’infecció. Ho farem amb les mateixes mostres(individus infectats (<strong>curats i no curats</strong>) després de <strong>4 setmanes</strong> d’haver administrat el medicament).</p>
+<p>Abans de tot és imprescindible identificar bé quines són les variables que treballarem i quin paper juguen a l’anàlisi.</p>
+<p><strong>Variable resposta</strong> (variable dependent): aquella variable que estem analitzant i de la qual en volem predir el seu valor</p>
+<p><strong>Variable predictora</strong> (Variable independent): aquella variable que en volem veure el seu efecte i ens serveix per predir la var. resposta</p>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Defineix quina és la variable resposta i quina, o quines, la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).
+</p>
+</div>
+<div id="selecció-de-mostres-per-lanàlisi-10" class="section level3 hasAnchor">
+<h3>4.1. Selecció de mostres per l’anàlisi<a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-10" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En aquest cas treballarem amb les mateixes mostres que en l’anàlisi anterior</p>
+</div>
+<div id="predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-de-dos-gens" class="section level3 hasAnchor">
+<h3>4.2. Predicció dels nivells de Xpert en funció de l’expressió gènica de dos gens<a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-de-dos-gens" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="exploració-de-les-dades-12" class="section level4 hasAnchor">
+<h4>Exploració de les dades<a href="07-pract7-reglinealI.html#exploració-de-les-dades-12" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+<ul>
+<li>Visualitza (gràficament) els nivells de xpert en funció de l’expressió del gen 8 i el gen 30.
+</p>
+<p>
+<ul>
+<li>Reporta numèricament la correlació entre <code>Xpert</code> i <code>Gen_8</code>. Recupera també la correlació entre <code>Xpert</code> i <code>Gen_30</code>
+</p>
+<p>
+<ul>
+<li>En base al gràfic i a la correlació entre les variables, creus que el gen 8 també està associat als nivells de xpert?
+</p>
+</div></li>
+</ul></li>
+</ul></li>
+</ul>
+<p><br></p>
+</div>
+<div id="anàlisi-estadística-12" class="section level4 hasAnchor">
+<h4>Anàlisi estadística<a href="07-pract7-reglinealI.html#anàlisi-estadística-12" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En aquest cas, construirem un <strong>model de regressió lineal múltiple</strong> ja que la variable resposta (xpert) és numèrica i hi ha dues variables predictores. Aquest model prendrà la següent fòrmula:</p>
+<p><span class="math display">\[ Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2\]</span></p>
+<ul>
+<li><p>Digues què representa <span class="math inline">\(Y(x)\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(\beta_0\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(\beta_1\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(x_1\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(\beta2\)</span>:</p></li>
+<li><p>Digues què representa <span class="math inline">\(x_2\)</span>:</p></li>
+</ul>
+<p><br></p>
+<p><strong>Model de regressió lineal múltiple</strong></p>
+<ul>
+<li>Crea un model de regressió lineal (<code>model3</code>) per predir els nivells de xpert en funció de l’expressió del gen 30 i del gen 8</li>
+</ul>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="07-pract7-reglinealI.html#cb208-1" tabindex="-1"></a>model3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Xpert <span class="sc">~</span> Gen_30 <span class="sc">+</span> Gen_8, <span class="at">data =</span> df4cc)</span>
+<span id="cb208-2"><a href="07-pract7-reglinealI.html#cb208-2" tabindex="-1"></a>model3</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Xpert ~ Gen_30 + Gen_8, data = df4cc)
+## 
+## Coefficients:
+## (Intercept)       Gen_30        Gen_8  
+##     -0.9647       1.1953       0.2674</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Amb el resultat del <code>model3</code>, re-escriu l’expressió de la regressió (<span class="math inline">\(Y(x) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2\)</span>) i interpreta els resultats del model
+</p>
+</div>
+<p><strong>Significació del model3</strong></p>
+<ul>
+<li>Comprova la significació estadística del <code>model3</code>:</li>
+</ul>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="07-pract7-reglinealI.html#cb210-1" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Xpert ~ Gen_30 + Gen_8, data = df4cc)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -38.242  -8.215   1.171   9.757  27.702 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.9647    10.8645  -0.089   0.9296    
+## Gen_30        1.1953     0.2019   5.920 1.95e-07 ***
+## Gen_8         0.2674     0.1283   2.085   0.0416 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 15.12 on 57 degrees of freedom
+## Multiple R-squared:  0.4158, Adjusted R-squared:  0.3953 
+## F-statistic: 20.28 on 2 and 57 DF,  p-value: 2.226e-07</code></pre>
+<div class="task-box">
+<div class="task-title">
+Tasca
+</div>
+<p>
+Interpreta els resultats pel que fa a la significació global i individual de cada variable
+</p>
+</div>
 
+</div>
+</div>
 </div>
 </div>
             </section>
@@ -300,42 +751,42 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "section"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
 });
 });
 </script>

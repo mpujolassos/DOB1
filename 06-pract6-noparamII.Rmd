@@ -1,0 +1,279 @@
+# Pràctica 6.   Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc
+
+
+## Objectius de la pràctica
+
+Els objectius principals de la pràctica són:
+
+-   Manipulació de data.frames (filtrar files segons diferents criteris)
+-   Identificar el test estadístic més apropiat en cada cas
+-   Treballar amb estadística no paramètrica
+-   Crear visualitzacions adequades per presentar els resultats
+-   Interpretar correctament els resultats (outputs) dels diferents testos
+-   Relacionar les hipòtesis estadístiques amb les hipòtesis científiques
+
+<br>
+
+## 1. Importar dades a R
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou RMarkdown anomenat "Practica6" i guarda'l a la carpeta de Pràctiques. 
+</p>
+</div>
+
+
+-   Crea un nou *chunk* que inclogui les diferents llibreries que
+    utilitzarem durant la pràctica:
+
+```{r message=FALSE, warning=FALSE}
+library(ggpubr)
+library(car)
+```
+
+-   En un altre *chunk* defineix el teu directori de treball i carrega
+    les dades. 
+```{r eval=FALSE, include=TRUE}
+setwd("path/to/your/folder/with/data")
+```
+
+```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
+setwd("C:/Users/10033834/OneDrive - Universitat de Vic/1. Docencia UVic/Biomed_2.Dades Òmiques i Bioinformàtica I/2. Practiques")
+```
+
+-   Carrega les dades del fitxer (*practR_dades.csv*) 
+    
+```{r}
+# carregar dades
+df <- read.csv2("dades/practR_dades.csv", dec = ",", row.names = 1)
+```
+
+-   Fes les transformacions necessàries:
+
+```{r include=TRUE}
+# transformem a factor
+df$Individu <- factor(df$Individu)
+df$Temps <- factor(df$Temps, levels = c(0, 1, 4, 24), labels = c("basal", "1set", "4set", "24set"))
+df$Sexe <- factor(df$Sexe)
+df$Tractament <- factor(df$Tractament)
+```
+
+<br>
+
+## 2. Comparació de l'expressió gènica entre més de dues mostres
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>
+    L'expressió del gen 43 al cap de 4 setmanes de tractament difereix entre els individus que s'acaben curant, els que no i els controls?
+  </p>
+</div>
+
+Per aquesta pràctica ens centrarem en l'expressió del **Gen 43**. Concretament estudiarem la seva expressió al cap de **4 setmanes** d'haver administrat el medicament en **pacients que s'acaben curant**, **pacients que no es curen** i **controls**
+
+### 2.1. Selecció de mostres per l'anàlisi
+
+-   Crea un nou data.frame (`df4`) amb mostres d'expressió dels gens al cap de 4 setmanes d'haver començat el tractament.
+
+```{r echo=TRUE}
+ind_4 <- which(df$Temps == "4set")
+df4 <- df[ind_4,]
+```
+
+-   Re-defineix els factors `Individu` i `Temps`
+
+```{r}
+df4$Temps <- factor(df4$Temps)
+df4$Individu <- factor(df4$Individu)
+```
+
+-   Abans de continuar, observa les dades i comprova que has seleccionat
+    les mostres desitjades.
+```{r}
+table(df4$Tractament, df4$Temps)
+```
+    
+
+### 2.2. Anàlisi de l'expressió entre curats, no curats i controls
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>-    Visualitza l'expressió del gen els tres grups d'individus</p>
+  <p>-   Reporta numèricament els valors de la mediana i la mitjana del gen 43 en els tres grups de pacients estudiats</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+ggboxplot(data = df4, x = "Tractament", y = "Gen_43",
+          add = "jitter")
+```
+
+```{r eval=FALSE, include=FALSE}
+tapply(df4$Gen_43, df4$Tractament, summary)
+```
+
+<br>
+
+#### Anàlisi estadística
+
+Per respondre a la pregunta anterior *"l'expressió del Gen 43 és diferent entre controls, curats i no curats?"*, haurem de comparar els valors de l'expressió del gen entre aquests tres grups. 
+
+-   Es tracta d'un experiment amb dades independents o dependents entre els grups estudiats?
+
+-   Quins testos coneixes per comparar la mitjana/mediana entre tres grups?
+
+-   Quina és la principal diferència entre ells? Quan apliquem un i quan l'altre?
+
+
+Abans d'aplicar el test comprovarem la distribució de les dades
+
+**1r.** Comprovar supòsits
+
+I)    Comprovació de la normalitat
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>-   Comprova si les dades d'expressió del gen 43 segueixen una distribució normal en tots els grups estudiats. Descriu els resultats (menciona les hipòtesis específiques del test de shapiro).</p>
+  <p>-   Visualitza amb un QQ plot la normalitat de les dades de cada grup (fes-ho amb la
+    funció `ggqqplot()`). El gràfic concorda amb el resultat del test?</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+tapply(df4$Gen_43, df4$Tractament, shapiro.test)
+```
+
+```{r eval=FALSE, include=FALSE}
+ggqqplot(df4, x = "Gen_43", facet.by = "Tractament")
+```
+
+
+<br>
+
+**2n.** Prova de Kruskal-Wallis
+
+Efectivament, les dades no segueixen una distribució normal. Per tant, optem per un test no paramètric: **test de Kruskal-Wallis**
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>-   Planteja les hipòtesis (nul·la i alternativa) del test estadístic en aquest cas concret</p>
+  <p>-   Realitza el test i comenta els resultats</p>
+</div>
+
+```{r}
+kruskal.test(df4$Gen_43 ~ df4$Tractament)
+```
+
+**3r.** Prova Post-hoc
+
+-   El resultat del test de Kruskal-Wallis ens informa de que hi ha diferències entre almenys una de les poblacions estudiades, però quina? Realitza múltiples proves de wilcoxon (prova post-hoc no paramètrica) per identificar les diferències concretes entre els grup.
+
+```{r}
+pairwise.wilcox.test(df4$Gen_43, df4$Tractament)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els resultats i escriu una petita conclusió dels resultats obtinguts en aquest apartat. Ajuda't del boxplot que has fet anteriorment per descriure els resultats.</p>
+</div>
+
+
+<br>
+
+## 3. Comparació de l'expressió gènica al llarg del temps
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>L'expressió d'aquest gen en individus curats varia al llarg del temps? 
+  </p>
+</div>
+
+
+### 3.1. Selecció de mostres per l'anàlisi
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou data.frame, `df_c` que contingui mostres dels individus curats per cada un dels temps mostrejats </p>
+</div>
+
+
+```{r include=FALSE}
+ind_c <- which(df$Tractament == "curat")
+df_c <- df[ind_c,]
+```
+
+
+-   Re-defineix el factor `Tractament`, `Individu` i `Temps`
+
+```{r include=TRUE}
+df_c$Tractament <- factor(df_c$Tractament)
+df_c$Individu <- factor(df_c$Individu)
+df_c$Temps <- factor(df_c$Temps)
+```
+
+### 3.2. Anàlisi de l'expressió gènica en individus curats al llarg del temps
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>-   Fes un gràfic per representar l'expressió del gen 43 al llarg del temps</p>
+  <p>-   Descriu el gràfic anterior i digues quins poden ser els resultats
+    esperats</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+ggline(data = df_c, x = "Temps", y = "Gen_43", color = "Individu")
+```
+
+
+
+<br>
+
+#### Anàlisi estadística
+
+Per tal de respondre a la pregunta de *"l'expressió del gen 43 en individus curats és constant o varia durat el temps?"* caldrà aplicar un test que compari les expressions a diferents temps.
+
+-   Es tracta d'un experiment amb dades independents o dependents entre els grups estudiats?
+
+-   Quins testos coneixes que comparin mitjanes/medianes entre més de dues poblacions com en aquest cas? Quina diferència hi ha entre aquests testos (*i.e.*, quan els utilitzem cada un)?
+
+**1r.** Comprovar supòsits
+
+I)    Comprovació de la normalitat (es comprova dins de cada grup estudiat mitjançant el
+test de shapiro: `shapiro.test()`)
+
+
+-   Visualitza la normalitat dins de cada grup. Recorda que en aquest cas els grups estan definits per `$Temps` i `$Individu`...hi ha una sola mostra per grup! Per tant, podem optar per fer directament l'anova i comprovar la normalitat dels residus de l'anova. 
+
+```{r echo=TRUE}
+an <- aov(df_c$Gen_43 ~ df_c$Temps+df_c$Individu)
+shapiro.test(an$residuals)
+```
+
+-   Comenta els resultats
+
+<br>
+
+**2n.**   Test de Friedman per mesures repetides
+
+Com que les dades no segueixen una distribució normal haurem d'aplicar un test no paramètric: **test Friedman per mesures repetides**
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Planteja les hipòtesis (nul·la i alternativa) del test estadístic</p>
+</div>
+
+-   Realitza el test. Defineix els tres arguments de la funció `friedman.test()`
+
+```{r}
+friedman.test(df_c$Gen_43, df_c$Temps, df_c$Individu)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Interpreta els resultats. Concorda amb la teva intuïció inicial dels resultats?</p>
+</div>
+
+-   En el cas que haguéssim trobat diferències significatives en almenys un dels temps, com ho fariem per identificar entre quins temps concrets hi ha aquestes diferències? Busca la funció `pairwise.wilcox.test()` i explica com hauriem d'indicar que es tracta de mesures repetides (pots escriure la funció per exemplificar-ho).
+

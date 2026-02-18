@@ -44,7 +44,7 @@ df <- read.csv2("dades/practR_dades.csv", dec = ",", row.names = 1)
 
 -   Fes les transformacions necessàries
 
-```{r include=FALSE}
+```{r include=TRUE}
 # transformem a factor
 df$Individu <- factor(df$Individu)
 df$Temps <- factor(df$Temps, levels = c(0, 1, 4, 24), labels = c("basal", "1set", "4set", "24set"))
@@ -299,7 +299,7 @@ wilcox.test(df4_cc$Gen_43 ~ df4_cc$Tractament)
 
 <br>
 
-## 4. Comparació de l'expressió per mostres aparellades (dades no normals)
+## 4. Comparació de l'expressió en mostres aparellades (dades no normals)
 
 <div class="research-question-box">
   <div class="rq-title">Pregunta de recerca</div>

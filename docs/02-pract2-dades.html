@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi | Pràctiques per l’anàlisi de dades òmiques amb R</title>
   <meta name="description" content="Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi | Pràctiques per l’anàlisi de dades òmiques amb R" />
-  <meta name="generator" content="bookdown 0.43 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Pràctica 2. Obtenció de dades de RNA-seq pel seu anàlisi | Pràctiques per l’anàlisi de dades òmiques amb R" />
   <meta property="og:type" content="book" />
@@ -217,7 +217,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#selecció-de-mostres-per-lanàlisi-4"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#anàlisi-de-lexpressió-del-gen-43-entre-controls-i-curats-al-cap-de-4-setmanes"><i class="fa fa-check"></i>3.2. Anàlisi de l’expressió del gen 43 entre controls i curats al cap de 4 setmanes</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#comparació-de-lexpressió-per-mostres-aparellades-dades-no-normals"><i class="fa fa-check"></i>4. Comparació de l’expressió per mostres aparellades (dades no normals)</a>
+<li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#comparació-de-lexpressió-en-mostres-aparellades-dades-no-normals"><i class="fa fa-check"></i>4. Comparació de l’expressió en mostres aparellades (dades no normals)</a>
 <ul>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#selecció-de-mostres-per-lanàlisi-5"><i class="fa fa-check"></i>4.1. Selecció de mostres per l’anàlisi</a></li>
 <li class="chapter" data-level="" data-path="05-pract5-noparamI.html"><a href="05-pract5-noparamI.html#anàlisi-de-lexpressió-en-pacients-curats-durant-la-primera-setmana"><i class="fa fa-check"></i>4.2. Anàlisi de l’expressió en pacients curats durant la primera setmana</a></li>
@@ -225,33 +225,58 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html"><i class="fa fa-check"></i>Pràctica 6. Estadística no paramètrica (II): Test de Kruskal-Wallis i proves post-hoc</a>
 <ul>
-<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#objectius-2"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#descripció-de-la-pràctica-1"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#objectius-de-la-pràctica-3"><i class="fa fa-check"></i>Objectius de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#importar-dades-a-r-4"><i class="fa fa-check"></i>1. Importar dades a R</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-entre-més-de-dues-mostres"><i class="fa fa-check"></i>2. Comparació de l’expressió gènica entre més de dues mostres</a>
+<ul>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-6"><i class="fa fa-check"></i>2.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-entre-curats-no-curats-i-controls"><i class="fa fa-check"></i>2.2. Anàlisi de l’expressió entre curats, no curats i controls</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#comparació-de-lexpressió-gènica-al-llarg-del-temps"><i class="fa fa-check"></i>3. Comparació de l’expressió gènica al llarg del temps</a>
+<ul>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#selecció-de-mostres-per-lanàlisi-7"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="06-pract6-noparamII.html"><a href="06-pract6-noparamII.html#anàlisi-de-lexpressió-gènica-en-individus-curats-al-llarg-del-temps"><i class="fa fa-check"></i>3.2. Anàlisi de l’expressió gènica en individus curats al llarg del temps</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html"><i class="fa fa-check"></i>Pràctica 7. Models de Regressió lineal (I)</a>
 <ul>
-<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#objectius-3"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#descripció-de-la-pràctica-2"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#objectius-de-la-pràctica-4"><i class="fa fa-check"></i>Objectius de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#importar-dades-a-r-5"><i class="fa fa-check"></i>1. Importar dades a R</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-simple"><i class="fa fa-check"></i>2. Model de regressió lineal simple</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-8"><i class="fa fa-check"></i>2.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica"><i class="fa fa-check"></i>2.2. Predicció dels nivells de Xpert en funció de l’expressió gènica</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltiple"><i class="fa fa-check"></i>3. Model de regressió lineal múltiple</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-9"><i class="fa fa-check"></i>3.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-i-ledat"><i class="fa fa-check"></i>3.2. Predicció dels nivells de Xpert en funció de l’expressió gènica i l’edat</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#model-de-regressió-lineal-múltipleii"><i class="fa fa-check"></i>4. Model de regressió lineal múltiple(II)</a>
+<ul>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#selecció-de-mostres-per-lanàlisi-10"><i class="fa fa-check"></i>4.1. Selecció de mostres per l’anàlisi</a></li>
+<li class="chapter" data-level="" data-path="07-pract7-reglinealI.html"><a href="07-pract7-reglinealI.html#predicció-dels-nivells-de-xpert-en-funció-de-lexpressió-gènica-de-dos-gens"><i class="fa fa-check"></i>4.2. Predicció dels nivells de Xpert en funció de l’expressió gènica de dos gens</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html"><i class="fa fa-check"></i>Pràctica 8. Models de Regressió lineal (II)</a>
 <ul>
-<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#objectius-4"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#descripció-de-la-pràctica-3"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#objectius-2"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="08-pract8-reglinealII.html"><a href="08-pract8-reglinealII.html#descripció-de-la-pràctica-1"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html"><i class="fa fa-check"></i>Pràctica 9. Models de Regressió logística (I)</a>
 <ul>
-<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#objectius-5"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#descripció-de-la-pràctica-4"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#objectius-3"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="09-pract9-reglogisticaI.html"><a href="09-pract9-reglogisticaI.html#descripció-de-la-pràctica-2"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html"><i class="fa fa-check"></i>Pràctica 10. Models de Regressió logística (II)</a>
 <ul>
-<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#objectius-6"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#descripció-de-la-pràctica-5"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#objectius-4"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="10-pract10-reglogisticaII.html"><a href="10-pract10-reglogisticaII.html#descripció-de-la-pràctica-3"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html"><i class="fa fa-check"></i>Pràctica 11. Visualització i interpretació de resultats de seqüenciació</a>
 <ul>
-<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#objectius-7"><i class="fa fa-check"></i>Objectius</a></li>
-<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#descripció-de-la-pràctica-6"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#objectius-5"><i class="fa fa-check"></i>Objectius</a></li>
+<li class="chapter" data-level="" data-path="11-pract11-visualitzacio.html"><a href="11-pract11-visualitzacio.html#descripció-de-la-pràctica-4"><i class="fa fa-check"></i>Descripció de la pràctica</a></li>
 </ul></li>
 </ul>
 
@@ -451,7 +476,7 @@ Crea un nou RMarkdown i guarda’l amb el nom de <em>Practica2</em>. Aquest ser�
 <li>Quan visualitzem la taula amb un gràfic de barres, l’odre de les etiquetes correspon a l’ordre de les columnes:</li>
 </ul>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="02-pract2-dades.html#cb24-1" tabindex="-1"></a><span class="fu">barplot</span>(<span class="fu">table</span>(metadata<span class="sc">$</span>Sex))</span></code></pre></div>
-<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-11-1.png" width="50%" /></p>
+<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-11-1.png" alt="" width="50%" /></p>
 <div class="task-box">
 <div class="task-title">
 Tasca
@@ -475,7 +500,7 @@ Torna a canviar l’ordre (primer F i després M) i representa-ho amb un gràfic
 <li>Fes un gràfic per resumir la variable <code>Edat</code>. Quin gràfic genera la funció <code>hist()</code>?</li>
 </ul>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="02-pract2-dades.html#cb27-1" tabindex="-1"></a><span class="fu">hist</span>(metadata<span class="sc">$</span>Edat)</span></code></pre></div>
-<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-14-1.png" width="50%" /></p>
+<p><img src="Practiques_R_Bioinformatica_I_files/figure-html/unnamed-chunk-14-1.png" alt="" width="50%" /></p>
 <div class="task-box">
 <div class="task-title">
 Tasca
@@ -604,42 +629,42 @@ Explica amb les teves paraules els arguments de dins la funció apply (pots ajud
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "section"
-}
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section"
+  }
 });
 });
 </script>
