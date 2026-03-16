@@ -2,5 +2,19 @@
 
 ## Objectius
 
+- Manipulació de data.frames (filtrar files segons diferents criteris)
 
-## Descripció de la pràctica
+- Analitzar la correlació entre dues variables
+
+- Treballar amb models de regressió lineals
+
+- Avaluar la significació i la precisió dels models de regressió
+
+- Comparar diferents models de regressió
+
+- Fer prediccions a partir d’un models de regressió lineal
+
+
+## Desenvolupament de la pràctica
+
+Aquesta pràctica consistirà en seguir l'activitat proposada i avaluar posteriorment les activitats d'altres companys.

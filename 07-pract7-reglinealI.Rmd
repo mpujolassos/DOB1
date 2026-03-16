@@ -280,7 +280,7 @@ summary(model2)
 
 <div class="research-question-box">
   <div class="rq-title">Pregunta de recerca</div>
-  <p>Les variables edat i expressió del gen 30 són bones predictores del nivell d'infecció de Tuberculosi?
+  <p>Les expressions dels gens 8 i 30 són bones predictores del nivell d'infecció de Tuberculosi?
   </p>
 </div>
 
