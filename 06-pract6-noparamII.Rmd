@@ -37,10 +37,6 @@ library(car)
 setwd("path/to/your/folder/with/data")
 ```
 
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-setwd("C:/Users/10033834/OneDrive - Universitat de Vic/1. Docencia UVic/Biomed_2.Dades Òmiques i Bioinformàtica I/2. Practiques")
-```
-
 -   Carrega les dades del fitxer (*practR_dades.csv*) 
     
 ```{r}
@@ -100,8 +96,9 @@ table(df4$Tractament, df4$Temps)
 
 <div class="task-box">
   <div class="task-title">Tasca</div>
-  <p>-    Visualitza l'expressió del gen els tres grups d'individus</p>
-  <p>-   Reporta numèricament els valors de la mediana i la mitjana del gen 43 en els tres grups de pacients estudiats</p>
+  <p>Visualitza l'expressió del gen els tres grups d'individus</p>
+  
+  <p>Reporta numèricament els valors de la mediana i la mitjana del gen 43 en els tres grups de pacients estudiats</p>
 </div>
 
 ```{r eval=FALSE, include=FALSE}
@@ -134,8 +131,8 @@ I)    Comprovació de la normalitat
 
 <div class="task-box">
   <div class="task-title">Tasca</div>
-  <p>-   Comprova si les dades d'expressió del gen 43 segueixen una distribució normal en tots els grups estudiats. Descriu els resultats (menciona les hipòtesis específiques del test de shapiro).</p>
-  <p>-   Visualitza amb un QQ plot la normalitat de les dades de cada grup (fes-ho amb la
+  <p>Comprova si les dades d'expressió del gen 43 segueixen una distribució normal en tots els grups estudiats. Descriu els resultats (menciona les hipòtesis específiques del test de shapiro).</p>
+  <p>Visualitza amb un QQ plot la normalitat de les dades de cada grup (fes-ho amb la
     funció `ggqqplot()`). El gràfic concorda amb el resultat del test?</p>
 </div>
 
@@ -156,8 +153,8 @@ Efectivament, les dades no segueixen una distribució normal. Per tant, optem pe
 
 <div class="task-box">
   <div class="task-title">Tasca</div>
-  <p>-   Planteja les hipòtesis (nul·la i alternativa) del test estadístic en aquest cas concret</p>
-  <p>-   Realitza el test i comenta els resultats</p>
+  <p>Planteja les hipòtesis (nul·la i alternativa) del test estadístic en aquest cas concret</p>
+  <p>Realitza el test i comenta els resultats</p>
 </div>
 
 ```{r}
@@ -217,8 +214,8 @@ df_c$Temps <- factor(df_c$Temps)
 
 <div class="task-box">
   <div class="task-title">Tasca</div>
-  <p>-   Fes un gràfic per representar l'expressió del gen 43 al llarg del temps</p>
-  <p>-   Descriu el gràfic anterior i digues quins poden ser els resultats
+  <p>Fes un gràfic per representar l'expressió del gen 43 al llarg del temps</p>
+  <p>Descriu el gràfic anterior i digues quins poden ser els resultats
     esperats</p>
 </div>
 

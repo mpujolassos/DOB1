@@ -14,8 +14,7 @@ Els objectius principals de la pràctica són:
 
 <div class="task-box">
   <div class="task-title">Tasca</div>
-  <p>Crea un nou RMarkdown anomenat "Practica7" i guarda'l a la carpeta de Pràctiques. 
-</p>
+  <p>Crea un nou RMarkdown anomenat "Practica7" i guarda'l a la carpeta de Pràctiques.</p>
 </div>
 
 -   Crea un nou *chunk* que inclogui les diferents llibreries que
@@ -30,10 +29,6 @@ library(car)
     les dades. 
 ```{r eval=FALSE, include=TRUE}
 setwd("path/to/your/folder/with/data")
-```
-
-```{r eval=FALSE, message=FALSE, warning=FALSE, include=FALSE}
-setwd("C:/Users/10033834/OneDrive - Universitat de Vic/1. Docencia UVic/Biomed_2.Dades Òmiques i Bioinformàtica I/2. Practiques")
 ```
 
 -   Carrega les dades del fitxer (*practR_dades.csv*) 
@@ -207,9 +202,11 @@ En aquest cas treballarem amb les mateixes mostres que en l'anàlisi anterior
 
 <div class="task-box">
   <div class="task-title">Tasca</div>
-  <p>-   Visualitza (gràficament) els nivells de xpert en funció de l'expressió del gen 30 i l'edat.</p>
-  <p>-   Reporta numèricament la correlació entre `Xpert` i `Edat`.</p>
-  <p>-   En base al gràfic i a la correlació entre les variables, creus que l'edat pot ser una bona predictora dels nivells de Xpert?</p>
+  <p>Visualitza (gràficament) els nivells de xpert en funció de l'expressió del gen 30 i l'edat.</p>
+  
+  <p>Reporta numèricament la correlació entre `Xpert` i `Edat`.</p>
+  
+  <p>En base al gràfic i a la correlació entre les variables, creus que l'edat pot ser una bona predictora dels nivells de Xpert?</p>
 </div>
 
 
@@ -218,11 +215,6 @@ En aquest cas treballarem amb les mateixes mostres que en l'anàlisi anterior
 ggscatter(data = df4cc, x = "Gen_30", y = "Xpert",
           color = "Edat")
 ```
-
-```{r echo=FALSE}
-cor(df4cc$Edat,df4cc$Xpert)
-```
-
 
 <br>
 
@@ -308,9 +300,11 @@ En aquest cas treballarem amb les mateixes mostres que en l'anàlisi anterior
 
 <div class="task-box">
   <div class="task-title">Tasca</div>
-  <p>-   Visualitza (gràficament) els nivells de xpert en funció de l'expressió del gen 8 i el gen 30.</p>
-  <p>-   Reporta numèricament la correlació entre `Xpert` i `Gen_8`. Recupera també la correlació entre `Xpert` i `Gen_30`</p>
-  <p>-   En base al gràfic i a la correlació entre les variables, creus que el gen 8 també està associat als nivells de xpert?</p>
+  <p>Visualitza (gràficament) els nivells de xpert en funció de l'expressió del gen 8 i el gen 30.</p>
+  
+  <p>Reporta numèricament la correlació entre `Xpert` i `Gen_8`. Recupera també la correlació entre `Xpert` i `Gen_30`</p>
+  
+  <p>En base al gràfic i a la correlació entre les variables, creus que el gen 8 també està associat als nivells de xpert?</p>
 </div>
 
 

@@ -1,7 +1,383 @@
 # Pràctica 9.   Models de Regressió logística (I)
 
 
-## Objectius
+## Objectius de la pràctica
+
+Els objectius principals de la pràctica són:
+
+-   Manipulació de data.frames (filtrar files segons diferents criteris)
+
+-   Modelar regressions logístiques
+
+-   Interpretació de models de regressió
+
+<br>
+
+## 1. Importar dades a R
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un nou RMarkdown anomenat "Practica9" i guarda'l a la carpeta de Pràctiques. 
+</p>
+</div>
+
+-   Crea un nou *chunk* que inclogui les diferents llibreries que
+    utilitzarem durant la pràctica:
+
+```{r message=FALSE, warning=FALSE}
+library(ggpubr)
+```
+
+-   En un altre *chunk* defineix el teu directori de treball i carrega
+    les dades. 
+```{r eval=FALSE, include=TRUE}
+setwd("path/to/your/folder/with/data")
+```
+
+-   Carrega les dades del fitxer (*practR_dades.csv*) 
+    
+```{r}
+# carregar dades
+dades <- read.csv2("dades/practR_dades.csv", dec = ",", row.names = 1)
+```
+
+-   Fes les transformacions a factor necessàries
+
+```{r include=FALSE}
+# transformem a factor
+dades$Individu <- factor(dades$Individu)
+dades$Temps <- factor(dades$Temps, levels = c(0, 1, 4, 24), labels = c("basal", "1set", "4set", "24set"))
+dades$Sexe <- factor(dades$Sexe)
+dades$Tractament <- factor(dades$Tractament)
+```
+
+-   Comprova que hagis fet bé les transformacions a factor.
+
+<br>
+
+## 2. Predicció de la resposta al tractament en funció del sexe
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p> El sexe és capaç de determinar si un pacient s'acaba curant o no?
+  </p>
+</div>
 
 
-## Descripció de la pràctica
+En aquesta pràctica ens centrarem en la resposta al tractament, és a dir, si els individus s'acaben curant o no després de 4 setmanes de tractament en funció de diferents covariables. En primer lloc analitzarem si el sexe afecta la probabilitat de curar-se al cap de 4 setmanes de tractament.
+
+Per fer-ho construirem un model de regressió logístic compost de:
+
+**Variable resposta** (variable dependent): aquella variable que estem analitzant i de la qual en volem predir el seu valor
+
+**Variable predictora** (Variable independent): aquella variable que en volem veure el seu efecte i ens serveix per predir la var. resposta
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Defineix quina és la variable resposta i quina la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).</p>
+</div>
+
+
+### 2.1. Selecció de mostres per l'anàlisi
+
+-   Crea un nou data.frame (`df`) amb mostres d'expressió dels gens al cap de 4 setmanes d'haver començat el tractament d'individus curats i no curats. Una manera de fer-ho és utilitzant l'expressió `dades$Tractament != "control"`.
+
+```{r echo=TRUE}
+ind_4cc <- which(dades$Temps == "4set" & dades$Tractament != "control")
+df <- dades[ind_4cc,]
+```
+
+-   Re-defineix el factor `Tractament`, `Individu`, `Temps`
+
+```{r}
+df$Tractament <- factor(df$Tractament)
+df$Temps <- factor(df$Temps)
+df$Individu <- factor(df$Individu)
+```
+
+-   Abans de continuar, observa les dades i comprova que has seleccionat
+    les mostres desitjades.
+```{r}
+table(df$Tractament, df$Temps)
+```
+
+### 2.2. Model de regressió logístic
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Visualitza (gràficament) la variable sexe i la resposta al tractament.</p>
+  
+  <p>Fes un resum numèric de la variable sexe i la resposta al tractament.</p>
+  
+  <p>Comenta el resum numèric i el gràfic anterior.</p>
+</div>
+
+
+```{r include=FALSE}
+sex_tab <- prop.table(table(df$Sexe, df$Tractament))
+barplot(sex_tab, legend.text = T)
+```
+
+<br>
+
+#### Anàlisi estadística
+
+En aquest cas, construirem un **model de regressió logístic** ja que la variable resposta, $Y$, fa referència a la resposta al tractament (`Tractament`). Com que la resposta al tractament és binària considererem els individus curats $Y=1$ i els individus no curats $Y=0$.
+
+
+Aquest model prendrà la següent fòrmula:
+
+$$ logit(\pi) = \beta_0 + \beta_1 \cdot x_1$$
+
+-   Digues què representa $\pi$:
+
+-   Digues què representa $x_1$:
+
+<br>
+
+**Model de regressió logístic simple**
+
+-   Abans de poder construir el model necessitem crear una nova variable, `Tractament_bi`, que correspongui a la variable resposta binària: 1 = curat i 0 = no curat. Hi ha diferents maneres de fer-ho, una d'elles és la següent:
+
+```{r}
+df$Tractament_bi <- ifelse(df$Tractament == "curat", 1, 0)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Descriu amb les teves paraules els tres arguments de la funció `ifelse()` i explica què fa la funció.</p>
+</div>
+
+-   Crea un model de regressió logístic (`model1`) per predir la probabilitat de curar-se (`Tractament_bi`) funció del sexe (`Sexe`). Per fer-ho utilitzem la funció `glm()` i especifiquem `family = binomial()`.
+
+```{r}
+model1 <- glm(Tractament_bi ~ Sexe, data = df, family = binomial())
+model1
+```
+
+<br>
+
+**Interpretació del model de regressió logístic simple**
+
+-   Fixa't només amb els coeficients (Estimate) del `model1` i re-escriu l'expressió de la regressió ($logit(\pi) = \beta_0 + \beta_1 \cdot x_1$): 
+
+```{r}
+summary(model1)
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Per poder analitzar l'efecte que té el sexe en la probabilitat de curar-se en què ens hem de fixar?</p>
+</div>
+
+-   Fes l'exponent dels coeficients del model per veure l'odds ratio de la covariable sexe. Com ho interpretes?
+```{r}
+# Odds-ratio (OR) de la covariable sexe és igual a l'exponent del coeficient de sexe
+b1 <- coef(model1)[[2]] # coeficient de la variable sexe (b1)
+OR_sexe <- exp(b1) # e^(b1)
+OR_sexe
+
+# (OR-1)*100 informa sobre el % més (o menys) de probabilitats de curar-se que te el grup M (homes) respecte el grup de referència (dones)
+(OR_sexe-1)*100
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Aquesta interpretació del model quadra amb l'exploració (gràfica i numèrica) que has fet inicialment entre el sexe i la resposta al tractament?</p>
+</div>
+
+<br>
+
+## 3. Predicció de la resposta al tractament en funció de l'expressió del gen 30
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>L'expressió del gen 30 és capaç de predir si un pacient s'acabarà curant?</p>
+</div>
+
+A les pràctiques anteriors hem vist que l'expressió del gen 30 està significativament associada a uns nivells d'infecció més alts. Podriem arribar a predir si una persona s'acaba curant o no en base a l'expressió d'aquest gen?
+
+Per fer-ho construirem un model de regressió logístic.
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Defineix quina és la variable resposta i quina la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).</p>
+</div>
+
+
+### 3.1. Selecció de mostres per l'anàlisi
+
+Treballarem amb el mateix dataset que en l'anàlisi anterior.
+
+### 3.2. Model de regressió logístic
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Visualitza (gràficament) la expressió del gen 30 i la resposta al tractament.</p>
+  
+  <p>Fes un resum numèric de la expressió del gen 30 i la resposta al tractament.</p>
+  
+  <p>Comenta el resum numèric i el gràfic anterior.</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+ggscatter(y = "Tractament", x = "Gen_30", data = df)
+ggboxplot(x = "Tractament", y = "Gen_30", data = df, rotate = T, add = "jitter")
+ggdensity(color = "Tractament", x = "Gen_30", data = df)
+```
+
+<br>
+
+#### Anàlisi estadística
+
+En aquest cas, construirem un **model de regressió logístic** ja que la variable resposta, $Y$, fa referència a la resposta al tractament (`Tractament`). Com que la resposta al tractament és binària considererem els individus curats $Y=1$ i els individus no curats $Y=0$.
+
+
+Aquest model prendrà la següent fòrmula:
+
+$$ logit(\pi) = \beta_0 + \beta_1 \cdot x_1$$
+
+-   Digues què representa $\pi$:
+
+-   Digues què representa $x_1$:
+
+<br>
+
+**Model de regressió logístic simple**
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Crea un model de regressió logístic (`model2`) per predir la probabilitat de curar-se (`Tractament_bi`) funció de la expressió del gen 30 (`Gen_30`). Fes-ho igual que abans, utilitzant la funció `glm()` i especifiquem `family = binomial()`.</p>
+</div>
+
+```{r include=FALSE}
+model2 <- glm(Tractament_bi ~ Gen_30, data = df, family = binomial())
+model2
+```
+
+<br>
+
+**Interpretació del model de regressió logístic simple**
+
+-   Fixa't només amb els coeficients (Estimate) del `model2` i re-escriu l'expressió de la regressió ($logit(\pi) = \beta_0 + \beta_1 \cdot x_1$): 
+
+```{r}
+summary(model2)
+```
+-   Fes l'exponent dels coeficients del model per veure l'odds ratio de la covariable Gen_30. Com ho interpretes?
+```{r}
+# Odds-ratio (OR) de la covariable sexe és igual a l'exponent del coeficient de sexe
+b1 <- coef(model2)[[2]] # coeficient de la variable gen30 (b1)
+OR_g30 <- exp(b1) # e^(b1) correspon als odds-ratios de la variable gen30
+OR_g30
+
+# (OR-1)*100 informa sobre el % més (o menys) de probabilitats de curar-se per cada unitat adicional d'expressió gènica
+(OR_g30-1)*100
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Aquesta interpretació del model quadra amb l'exploració (gràfica i numèrica) que has fet inicialment entre la expressió gènica i la resposta al tractament?</p>
+</div>
+
+
+<br>
+
+## 4. Predicció de la resposta al tractament en funció de l'expressió del gen 30 i gen 8
+
+<div class="research-question-box">
+  <div class="rq-title">Pregunta de recerca</div>
+  <p>L'expressió del gen 30 i del gen 8 és capaç de predir si un pacient s'acabarà curant?</p>
+</div>
+
+Anteriorment hem vist que l'expressió del gen 8 també està significativament associada a uns nivells d'infecció més alts, tot i que de manera més lleu en comparació al gen 30. Podriem arribar a predir si una persona s'acaba curant o no en base a l'expressió del dos gens alhora a les 4 setmanes de tractament?
+
+Per fer-ho construirem un model de regressió logístic.
+
+-   Defineix quina és la variable resposta i quina la variable predictora en aquest anàlisi. Digues també quin tipus de variable són cada una (numèrica/categòrica).
+
+### 4.1. Selecció de mostres per l'anàlisi
+
+Treballarem amb el mateix dataset que en l'anàlisi anterior.
+
+### 4.2. Model de regressió logístic
+
+#### Exploració de les dades
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Visualitza (gràficament) la expressió del gen 8 i la resposta al tractament.</p>
+  
+  <p>Fes un resum numèric de la expressió del gen 8 i la resposta al tractament.</p>
+  
+  <p>En base a aquests resultats exploratoris creus que el gen 8 pot aportar informació extra en la predicció de la probabilitat de curar-se?</p>
+</div>
+
+```{r eval=FALSE, include=FALSE}
+ggscatter(y = "Tractament", x = "Gen_8", data = df)
+ggboxplot(x = "Tractament", y = "Gen_8", data = df, rotate = T, add = "jitter")
+ggdensity(color = "Tractament", x = "Gen_8", data = df)
+```
+
+
+<br>
+
+#### Anàlisi estadística
+
+En aquest cas, construirem un **model de regressió logístic** ja que la variable resposta, $Y$, fa referència a la resposta al tractament (`Tractament`). Com que la resposta al tractament és binària considererem els individus curats $Y=1$ i els individus no curats $Y=0$.
+
+
+Aquest model prendrà la següent fòrmula:
+
+$$ logit(\pi) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2$$
+
+-   Digues què representa $\pi$:
+
+-   Digues què representa $x_1$:
+
+-   Digues què representa $x_2$:
+
+<br>
+
+**Model de regressió logístic simple**
+
+-   Crea un model de regressió logístic (`model3`) per predir la probabilitat de curar-se (`Tractament_bi`) funció de la expressió del gen 30 (`Gen_30`) i del gen 8 (`Gen_8`). Fes-ho igual que abans, utilitzant la funció `glm()` i especifiquem `family = binomial()`.
+
+```{r}
+model3 <- glm(Tractament_bi ~ Gen_30 + Gen_8, data = df, family = binomial())
+model3
+```
+
+<br>
+
+**Interpretació del model de regressió logístic simple**
+
+-   Fixa't només amb els coeficients (Estimate) del `model3` i re-escriu l'expressió de la regressió ($logit(\pi) = \beta_0 + \beta_1 \cdot x_1 + \beta_2 \cdot x_2$): 
+
+```{r}
+summary(model3)
+```
+-   Fes l'exponent dels coeficients del model per veure l'odds ratio de la covariable Gen_30. Com ho interpretes?
+```{r}
+# Odds-ratio (OR) de la covariable sexe és igual a l'exponent del coeficient de sexe
+b1 <- coef(model3)[[2]] # coeficient de la variable gen30 (b1)
+OR_g30 <- exp(b1) # e^(b1) correspon als odds-ratios de la variable gen30
+OR_g30
+
+b2 <- coef(model3)[[3]] # coeficient de la variable gen8 (b1)
+OR_g8 <- exp(b2) # e^(b2) correspon als odds-ratios de la variable gen8
+OR_g8
+
+# (OR-1)*100 informa sobre el % més (o menys) de probabilitats de curar-se per cada unitat adicional d'expressió gènica
+(OR_g30-1)*100
+(OR_g8-1)*100
+```
+
+<div class="task-box">
+  <div class="task-title">Tasca</div>
+  <p>Aquesta interpretació del model quadra amb l'exploració (gràfica i numèrica) que has fet inicialment entre les expressions gèniques i la resposta al tractament?</p>
+</div>
