@@ -4,3 +4,74 @@
 
 
 ## Descripció de la pràctica
+
+Carregar llibreria
+```{r}
+library(ggpubr)
+```
+
+Carregar dades
+```{r}
+data("gene_expression")
+
+head(gene_expression)
+```
+## GATA3
+
+```{r}
+hist(gene_expression$GATA3)
+hist(gene_expression$PTEN)
+hist(gene_expression$XBP1)
+```
+
+```{r}
+tapply(gene_expression$GATA3, gene_expression$dataset, hist)
+
+tapply(gene_expression$GATA3, gene_expression$dataset, shapiro.test)
+
+# mostres de Ovarian serous cystadenocarcinoma (OV) and Lung squamous cell carcinoma (LUSC)
+ind <- which(gene_expression$dataset != "LUSC")
+df <- gene_expression[ind,]
+table(df$dataset)
+
+df$dataset <- factor(df$dataset)
+
+hist(df$GATA3)
+
+ggboxplot(df, x = "dataset", y = "GATA3")
+
+# Normalitat
+tapply(df$GATA3, df$dataset, shapiro.test)
+tapply(df$PTEN, df$dataset, shapiro.test)
+tapply(df$XBP1, df$dataset, shapiro.test)
+
+
+# Wilcoxon
+wilcox.test(GATA3 ~ dataset, data = df)
+wilcox.test(PTEN ~ dataset, data = df)
+wilcox.test(XBP1 ~ dataset, data = df)
+
+# Model regressió logística
+df$y <- ifelse(df$dataset == "BRCA", 1, 0)
+m1 <- glm(y ~ GATA3, data = df, family = binomial())
+m2 <- glm(y ~ PTEN, data = df, family = binomial())
+m3 <- glm(y ~ XBP1, data = df, family = binomial())
+
+m4 <- glm(y ~ GATA3 + PTEN + XBP1, data = df, family = binomial())
+
+summary(m1)
+summary(m2)
+summary(m3)
+
+summary(m4)
+
+exp(m1$coefficients[[2]])
+exp(m2$coefficients[[2]])
+exp(m3$coefficients[[2]])
+
+exp(m4$coefficients)
+```
+
+
+
+
