@@ -1,4 +1,4 @@
-# Pràctica 11. Visualització i interpretació de resultats de seqüenciació
+# Pràctica 11. Integració
 
 ## Objectius
 

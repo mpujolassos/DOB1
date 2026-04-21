@@ -3032,7 +3032,7 @@ exp(m4$coefficients)
 
 <!--chapter:end:10-pract10-reglogisticaII.Rmd-->
 
-# Pràctica 11. Visualització i interpretació de resultats de seqüenciació
+# Pràctica 11. Integració
 
 ## Objectius
 
